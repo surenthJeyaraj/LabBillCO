@@ -1,0 +1,116 @@
+﻿@{
+    ViewBag.Title = "Claims";
+    Layout = "~/Views/Shared/AuthenticateLayout.cshtml";
+}
+
+@section HeaderScripts
+{
+    @Scripts.Render(Links.Scripts.Pages.Remittance_js)
+}
+<style type="text/css">
+    .row {
+        display: -webkit-box !important;
+        display: -ms-flexbox !important;
+        display: flex !important;
+        -ms-flex-wrap: wrap !important;
+        flex-wrap: wrap !important;
+        margin-right: -15px !important;
+        margin-left: -15px !important;
+        margin: 0 !important;
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+        padding: 0 !important;
+    }
+
+        .row > div {
+            padding: 15px;
+        }
+    #tblRemittance th {
+        background-color: #A7A7A7;
+        font-weight: bold;
+    }
+
+    .download {
+        text-align: center;
+    }
+
+    .center-align {
+        text-align: center;
+    }
+
+    table.dataTable thead th {
+        font-weight: bold;
+    }
+
+    .heading {
+        font-size: 20px;
+    }
+
+    .row {
+        padding-left: 60px;
+    }
+
+    .content {
+        background: #ffffff;
+    }
+
+    .heading .collapsed {
+        padding-top: 5px;
+    }
+
+    .metro .accordion.with-marker .heading:before {
+        top: 6px !important;
+    }
+
+    .pagination {
+        margin-top: 5px !important;
+    }
+
+    .window {
+        height: 70% !important;
+        width: 80% !important;
+        max-height: 70% !important;
+        overflow: auto !important;
+    }
+
+    .chosen-container {
+        width: 100% !important;
+    }
+
+    .chosen-container-single .chosen-single {
+        height: 34px;
+        line-height: 31px;
+        width: 100%;
+    }
+
+        .chosen-container-single .chosen-single div b {
+            margin-top: 4px;
+        }
+
+    .search-choice-close {
+        margin-top: 4px;
+    }
+
+    #remittanceSection {
+        /*padding: 30px 10px 10px 70px;*/
+    }
+</style>
+<section class="" id="remittanceSection">
+    <h4>Health Care Claim Payment/Advice</h4>
+    <div id="ajax_loader" class="dataTables_processing" style="display:none;">Processing...</div>
+    <div class="examplebg bd-white shadow" id="remittanceTable" style="background-color: #ECFA6A;">
+        <a id="goBack" href="" style="float:right"><span class="mif-arrow-left"></span> Back</a>
+        <table id="tblClaims" style="width: 100%">
+            <thead>
+                <tr>
+                    <th>Claim No.</th>
+                    <th>Patient Name</th>
+                    <th>Claim Amount</th>
+                    <th>Charged Amount</th>
+                    <th>Code</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</section>

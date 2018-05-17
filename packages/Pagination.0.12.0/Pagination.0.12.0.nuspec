@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Pagination</id>
+    <version>0.12.0</version>
+    <authors>Ken Yourek</authors>
+    <owners>Ken Yourek</owners>
+    <licenseUrl>http://code.google.com/p/source-pagination/source/browse/trunk/Pagination/License.txt</licenseUrl>
+    <projectUrl>http://code.google.com/p/source-pagination/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Pagination offers easy control over paged results from IQueryable sources.</description>
+    <releaseNotes />
+    <copyright>Copyright Ken Yourek 2013</copyright>
+    <tags>Pagination Paging Pages LINQ</tags>
+    <references>
+      <reference file="Pagination.dll" />
+    </references>
+  </metadata>
+</package>

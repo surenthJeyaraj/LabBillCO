@@ -1,0 +1,25 @@
+﻿@using System.Web.Optimization
+@model  Web.Models.Claim
+@{
+    ViewBag.Title = "Report";
+}
+
+<div class="row">
+
+    <div class="form_row dateSearch" style="padding-left: 10%; padding-top: 1em; width: 80% ">
+
+        @using (Ajax.BeginForm("GetDailyReport", "Home", new AjaxOptions { UpdateTargetId = "reportDisplay" }))
+        {
+            <label>Appointment Date</label>
+
+            <input type="submit" class="btn btn-mini" value="Get Report" id="submit" />            
+            <input type="button" id="printMe" class="btn btn-mini" style="float: right" value="Print Report" /> 
+        }
+
+
+    <br />
+    <div class="row" id="reportDisplay" style="position: relative;z-index: 1; padding: 1em; line-height: 1.1em; font-family: monospace; white-space: pre; overflow: auto; background-color: rgb(240,255,240); border: thin solid rgb(255,220,255);">
+            @Html.DisplayFor(m => m.Report)
+    </div>
+    </div>
+</div>

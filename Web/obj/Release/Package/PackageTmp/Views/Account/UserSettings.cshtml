@@ -1,0 +1,81 @@
+﻿@model Web.Models.Account.UserSettingsModel
+
+@{
+    ViewBag.Title = "User Settings";
+    Layout = "~/Views/Shared/AuthenticateLayout.cshtml";
+    var isSuccess = (string) ViewBag.IsSaveSuccessful;
+}
+
+<style type="text/css">
+        #userSettingsSection {
+            padding: 30px 10px 10px 70px;
+        }
+
+            #userSettingsSection:before {
+                position: absolute;
+                content: "User Settings";
+                padding-top: 45px;
+                color: #FFC000 !important;
+                font-family: 'Segoe UI Semibold_', 'Open Sans Bold', Verdana, Arial, Helvetica, sans-serif;
+                font-weight: bold;
+                color: #000000;
+                line-height: 1.6rem;
+                letter-spacing: 0.02em;
+                color: rgba(0, 0, 0, 0.6);
+                font-size: 2rem;
+                line-height: 1.4rem;
+                -webkit-transform: rotate(-90deg);
+                -moz-transform: rotate(-90deg);
+                -ms-transform: rotate(-90deg);
+                -o-transform: rotate(-90deg);
+                transform: rotate(-90deg);
+            }
+             .metro .input-control.password, .metro .input-control.text{
+            cursor:text;
+            }
+             .note {
+                 font-size: 1.2rem;
+                 color: brown;
+            }
+             .metro .hint {
+                 z-index: 1051;
+             }
+    </style>
+@section HeaderScripts
+{
+    @Scripts.Render(Links.Scripts.Pages.UserSettings_js)
+}
+
+<section class="example" id="userSettingsSection">
+     @using (Html.BeginForm())
+     {
+         @Html.AntiForgeryToken()
+         <fieldset>
+             <legend style="display: none" class="select">User Settings</legend>
+             <div class="row">
+                 <div class="col-md-4">
+                     <div class="form-group">
+                         @Html.LabelFor(x => x.FirstName)
+                         @Html.TextBoxFor(x => x.FirstName,Model.FirstName,new { @class = "form-control", @placeholder="Please type your first name."  })
+                     </div>
+                     <div class="form-group">
+                         @Html.LabelFor(x => x.LastName)
+                         @Html.TextBoxFor(x => x.LastName, Model.LastName, new { @class = "form-control", @placeholder="Please type your last name." })
+                     </div>
+                     <div class="form-group">
+                         @Html.LabelFor(x => x.Email)
+                         @Html.TextBoxFor(x => x.Email, Model.Email, new { @class = "form-control", @readonly=true})
+                     </div>
+                     <div class="col-md-12">
+                         <input type="submit"  class="btn btn-success" value="Save" />
+                         <input type="button"  class="btn btn-primary" value="Change Password" id="btnChangePassword" />
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     @Html.ValidationSummary()
+                 </div>
+                @Html.Hidden("IsSavedSuccessfully",isSuccess)
+             </div>
+         </fieldset>
+     }
+</section>

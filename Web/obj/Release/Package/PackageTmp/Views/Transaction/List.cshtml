@@ -1,0 +1,418 @@
+﻿    @*@model Web.Models.Claim.TransactionModel*@
+
+
+@{
+    ViewBag.Title = "List Transactions";
+    Layout = "~/Views/Shared/AuthenticateLayout.cshtml";
+}
+<style type="text/css">
+    #searchCriteria {
+        margin-top: 20px;
+    }
+
+        #searchCriteria:before {
+            content: "Search";
+        }
+
+    #transactionTable {
+        margin-top: 20px;
+    }
+
+    #transactionTable:before {
+        content: "Results";
+    }
+
+    /* for window style...*/
+    table.gridtable {
+        font-family: verdana,arial,sans-serif;
+        font-size: 11px;
+        color: #333333;
+        border-width: 1px;
+        border-color: #666666;
+        border-collapse: collapse;
+    }
+
+    table.gridtable th {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+        background-color: #CEE7C9;
+        font-weight: bold;
+    }
+
+    table.gridtable td {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+    }
+    .dataTable .notSortable{
+    font-weight:bold;
+}
+ 
+table.dataTable thead th {
+	
+	font-weight: bold;
+	
+	
+}
+
+
+
+
+    sStyleParaText {
+        LIST-STYLE-POSITION: inside;
+        border-spacing: 1000px;
+        padding: 1px;
+        border: #527787;
+    }
+
+    sStyleRowType {
+        FONT-WEIGHT: normal;
+        FONT-SIZE: 8pt;
+        LINE-HEIGHT: 19px;
+        FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+    }
+
+    .backroundcolor {
+        background-color: #65C7BD;
+    }
+    
+
+    /* For changing the chosen height...*/
+    .chosen-container-single .chosen-single {
+        height: 33px;
+        line-height: 29px;
+        width:100%;
+    }
+    .chosen-container-single .chosen-single div b {
+        background: url('../Content/chosen-sprite.png') no-repeat scroll 0 6px rgba(0, 0, 0, 0);
+    }
+    .chosen-container-active.chosen-with-drop .chosen-single div b {
+        background-position: -18px 6px;
+    }
+
+
+    .chosen-container-single .chosen-single abbr {
+        background: url('../Content/chosen-sprite.png') no-repeat scroll -42px 3px rgba(0, 0, 0, 0);
+    }
+
+    .chosen-container-single .chosen-single abbr:hover {
+        background-position: -42px 3px;
+    }
+
+    .chosen-container a {
+        cursor: pointer;
+    }
+
+    /*Metro is overriding chosen.. so added this..*/
+    .metro abbr {
+        border-bottom: 1px dotted #999999;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    div.DataTables_sort_wrapper {
+        font-weight:bold;
+    }
+    .metro .table th, .metro .table td {
+    font-size:9pt;
+    word-break:break-all;
+}
+   
+.chosen-container .chosen-results li {
+    
+    font-size:9pt;
+}
+.switch > div > span.switch-default {
+    background: none repeat scroll 0 0 #f00;
+    color: #000000;
+}
+.switch > div > span.switch-default {
+    background: none repeat scroll 0 0  #ce4c4c;
+    color: #000000;
+}
+
+.switch > div > span.switch-primary {
+    background: none repeat scroll 0 0 #45ba07;
+    color: #FFFFFF;
+}
+.Quickview {
+    background-color: #DDDDDD !important;
+    
+    }
+    .Quickview tr {
+        background-color: #DDDDDD !important;
+    }
+</style>
+
+
+@section HeaderScripts
+{
+    @Scripts.Render(Links.Scripts.Pages.TransactionDetails_js)
+}
+@*<h2><span class="headercontent">Show Transactions</span></h2>*@
+<h2><span class="headercontentWhite">Show Transactions</span></h2>
+<div class="examplebg bd-white shadow" id="searchCriteria" style="background-color: #ECFA6A;">
+    <script src="~/Scripts/metro.min.js"></script>
+    <table class="shadow" border="0">
+        <tr>
+            <td class="GridHeader left" colspan="6">Search Criteria</td>
+        </tr>
+        <tr>
+
+            <td style="width: 25%">
+                <div class="input-control text" data-role="input-control">
+                    <input type="text" id="userId" placeholder="User ID" />
+
+                </div>
+
+            </td>
+            <td style="width: 25%">
+                <div class="input-control text" data-role="input-control">
+                    <input type="text" id="subscriberId" placeholder="Subscriber ID" />
+                </div>
+            </td>
+            <td style="width: 25%">
+                <div class="input-control text" data-role="input-control">
+                    <input type="text" id="patientLastName" placeholder="Patient Last Name" />
+                </div>
+            </td>
+
+            <td style="width: 10%">
+                <div class="input-control radio">
+                    <input id="ediVersion5010A2" type="radio" data-size="small" data-label-text="5010A2" value="5010A2">
+                </div>
+            </td>
+            <td style="width: 10%">
+                <div class="input-control radio">
+                    <input id="ediVersion4010A1" type="radio" data-size="small" data-label-text="4010A1" value="4010A1">
+                </div>
+            </td>
+            <td style="width: 5%"></td>
+
+
+        </tr>
+        <tr>
+            <td>
+                <div class="input-control text" data-role="input-control">
+                    <input type="text" id="fileName" placeholder="File Name" />
+                </div>
+            </td>
+
+            <td>
+                <div class="input-control text" data-role="input-control">
+                    <input type="text" id="subscriberLName" placeholder="Subscriber Last Name" />
+                </div>
+            </td>
+            <td>
+                <div class="input-control text" data-role="input-control">
+                    <input type="text" id="patientFirstName" placeholder="Patient First Name" />
+                </div>
+            </td>
+            <td>
+                <div class="input-control radio">
+                    <input id="chkClaim" type="radio" data-size="small" data-label-text="Claim" value="Claim">
+                </div>
+            </td>
+            <td>
+                <div class="input-control radio">
+                    <input id="chkPreD" type="radio" data-size="small" data-label-text="Pre-D" value="Pre-D">
+                </div>
+            </td>
+            <td></td>
+
+        </tr>
+        <tr>
+
+
+            <td>
+                <div class="input-control text" data-role="input-control">
+                    <input type="text" id="claimNo" placeholder="Claim/Trace #" />
+                </div>
+            </td>
+
+
+            <td>
+                <div class="input-control text" data-role="input-control">
+                    <input type="text" id="subscriberFirstName" placeholder="Subscriber First Name" />
+                </div>
+            </td>
+            <td>
+                <div class="input-control text" data-role="input-control">
+                    <input type="text" id="billingNPI" placeholder="Billing Provider ID" />
+                </div>
+
+            </td>
+            <td>
+                <div class="input-control checkbox">
+                    <input id="typeProd" type="checkbox" data-size="small" data-label-text="Live" value="P">
+                </div>
+            </td>
+            <td>
+                <div class="input-control radio">
+                    <input id="typeTest" type="radio" data-size="small" data-label-text="Test" value="T">
+                </div>
+            </td>
+            <td></td>
+
+        </tr>
+        <tr>
+            <td>
+                <div class="input-control text" data-role="input-control" >
+                    @*<input type="text" id="payerId" placeholder="Payer ID" />*@
+                      <select data-placeholder="Choose a payer name..." style="width:100%;font-size:9pt;"  class="chzn-select" id="ddlPayerList">
+                           
+                </select>
+                 
+                </div>
+            </td>
+            <td>
+                <div class="input-control text" id="datePickerFrom">
+                    <input type="text" id="postedDateFrom">
+                    <button class="btn-date"></button>
+                </div>
+
+            </td>
+            <td>
+                <div class="input-control text" id="datePickerTo">
+                    <input type="text" id="postedDateTo">
+                    <button class="btn-date"></button>
+                </div>
+            </td>
+
+            <td class="right">
+                @Html.AntiForgeryToken()
+                <button id="searchButton" class="button polaroid bd-white shadow">Search</button>
+
+            </td>
+
+            <td class="center">
+                <button id="cancelButton" class="button polaroid bd-white shadow">Cancel</button>
+            </td>
+        </tr>
+    </table>
+
+
+
+
+</div>
+
+<div class="examplebg bd-white shadow" id="transactionTable" style="background-color: #ECFA6A;">
+
+    <div id="dataTables-1_wrapper" class="dataTables_wrapper" role="grid">
+        <div class="dataTables_length" id="dataTables-1_length">
+            @* <label>
+                Show
+                <select name="dataTables-1_length" aria-controls="dataTables-1" class="">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                entries</label>*@
+        </div>
+        <div id="dataTables-1_processing" class="dataTables_processing" style="visibility: hidden;">Processing...</div>
+        <table class="table striped hovered dataTable shadow"  id="tblResult" border="0" aria-describedby="dataTables-1_info"  >
+            <thead>
+                <tr class="GridHeader"  role="row">
+                    <th style="width:12%;white-space:nowrap;font-weight:bold;" >Transaction ID</th>
+                    <th style="width:16%;white-space:nowrap;font-weight:bold;" >File Name</th>
+                    @*<th style="width:8%;white-space:nowrap;font-weight:bold;" >Posted File</th>*@
+                    <th style="width:10%;white-space:nowrap;font-weight:bold;">User ID</th>
+                    <th style="width:8%;white-space:nowrap;font-weight:bold;">Date </th>
+                    <th style="width:8%;white-space:nowrap;font-weight:bold;" >Version</th>
+                    @* <th class="GridHeader">Trans. Type</th>*@
+                    <th style="width:4%;white-space:nowrap;font-weight:bold;" >Mode</th>
+                    <th style="width:4%;white-space:nowrap;font-weight:bold;" >TA1</th>
+                    <th style="width:5%;white-space:nowrap;font-weight:bold;" >997/999</th>
+                    <th style="width:12%;white-space:nowrap;font-weight:bold;"></th>
+                    <th style="width:8%;white-space:nowrap;font-weight:bold;" ></th>
+                    <th style="width:4%;white-space:nowrap;font-weight:bold;" ></th>
+                    @* <th class="GridHeader"></th>*@
+                    @* <th class="GridHeader">Total</th>*@
+
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+
+
+        </table>
+        <div class="dataTables_info" id="dataTables-1_info" role="alert" aria-live="polite" aria-relevant="all"></div>
+        <div class="dataTables_paginate paging_simple_numbers" id="dataTables-1_paginate"></div>
+        <input type="hidden" value="@ViewBag.PostedDate" id="hidPosteddate" />
+        <input type="hidden" value="@ViewBag.CheckStatus" id="hidCheckStatus" />
+    </div>
+
+</div>
+
+<script id="displayResultTemplate" type="text/x-jsrender">
+
+    @* <table border="2"><tr align="center" > <td align="left">Transaction Status</td>
+      <td align="left">Rejected</td>
+    </tr>
+    <tr align="center"> 
+	  <td align="left">Interchange Note</td>
+      <td align="left">{{>data.description}} </td>
+    </tr>	
+	</table>*@
+
+
+    <table class="gridtable">
+        <caption style="font-size: small">Interchange Acknowledgment</caption>
+        <thead>
+            <tr>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>Rejected</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Reason</th>
+                <td>{{>data.description}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+</script>
+
+<script id="displayAckowledgeTemplate" type="text/x-jsrender">
+
+    <table class="gridtable">
+        <caption style="font-size: small">Acknowledgment</caption>
+        <thead>
+        </thead>
+        <tbody>
+            <th>
+                <div style='height: 200px; overflow: scroll; width: 100%;'>
+                    @*$($.parseHTML(myString));*@
+
+                    {{>description}}
+                </div>
+            </th>
+        </tbody>
+    </table>
+
+
+
+</script>
+<script id="displaySummaryTemplate" type="text/x-jsrender">
+
+
+    <table class="gridtable">
+        <caption style="font-size: small">Interchange Acknowledgment</caption>
+
+        <tbody>
+            <div bgcolor='#6E6E6E' style='height: 600px; overflow: scroll; width: 100%;'>
+                {{>data.description}} 
+            </div>
+        </tbody>
+
+
+    </table>

@@ -1,0 +1,63 @@
+﻿@*@model Web.Models.Account.LoginModel
+    @{
+        ViewBag.Title = "Dasboard";
+    }*@
+@model Web.Models.Claim.WelcomeViewModel
+@{
+    ViewBag.Title = "Dasboard";
+}
+<style type="text/css">
+    #searchCriteria {
+        margin-top: 10px;
+        margin-left: 50px;
+    }
+
+        #searchCriteria:before {
+            margin-top: 100px;
+            content: "Notification";
+        }
+
+    .rejectionlink {
+        color: blue;
+        text-align: right;
+        font-weight: bold;
+    }
+</style>
+@section HeaderScripts
+{
+    @Scripts.Render(Links.Scripts.Pages.Welcome_js)
+}
+
+<h2></h2>
+<script src="~/Scripts/metro.min.js"></script>
+<div class="list-group">
+
+</div>
+<div class="list-group">
+
+</div>
+<div class="list-group">
+
+
+</div>
+<input type="hidden" id="hidtest" value="@ViewBag.Test" />
+
+<div class="examplebg bd-white shadow bg-container" id="userTable" style="background-color: #ECFA6A  !important;">
+
+    <div id="dataTables-1_wrapper" class="dataTables_wrapper" role="grid">
+        <div id="ajax_loader" class="dataTables_processing" style="display:none;">Processing...</div>
+        <table class="table striped hovered dataTable shadow" id="tblUserList" border="0" aria-describedby="dataTables-1_info">
+            <thead>
+                <tr class="GridHeader" role="row">
+                    <th>#</th>
+                    <th>Order ID</th>
+                    <th>File Name</th>
+                    <th>status</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+</div>
+

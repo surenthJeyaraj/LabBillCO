@@ -1,0 +1,14 @@
+Logging
+----------
+1. Common Logging Interface
+2. Nlog
+3. Elmah
+
+Dependency Injection Container
+------------------------------
+1. Autofac
+
+Web
+----------
+1. Bootstrap 3+
+2. Jquery 2+

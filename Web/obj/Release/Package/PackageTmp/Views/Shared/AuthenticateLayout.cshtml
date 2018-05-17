@@ -1,0 +1,22 @@
+﻿@using System.Web.Optimization
+@{
+    Layout = MVC.Shared.Views._Layout;
+}
+
+@section HeaderScripts
+{
+  
+@RenderSection("HeaderScripts", false)
+   
+}
+
+    <style type="text/css">
+#idletimeout { background:#ECFA6A; border:1px solid #fff; color:#fff; font-family:arial, sans-serif; text-align:center; font-size:12px; padding:10px; position:relative; top:0px; left:0; right:0; z-index:100000; display:none; }
+#idletimeout a { color:#fff; font-weight:bold }
+#idletimeout span { font-weight:bold }
+</style>
+
+    <div id="idletimeout">
+    You will be logged off in <span><!-- countdown place holder --></span> seconds due to inactivity. 
+	<a id="idletimeout-resume" href="#">Click here to continue using Portal</a></div>
+@RenderBody()

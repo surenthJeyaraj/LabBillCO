@@ -1,0 +1,4 @@
+E:\Personal\Examples 2010\QueryBuilder\QueryBuilder\bin\Debug\Dapper.QueryBuilder.dll
+E:\Personal\Examples 2010\QueryBuilder\QueryBuilder\bin\Debug\Dapper.QueryBuilder.pdb
+E:\Personal\Examples 2010\QueryBuilder\QueryBuilder\obj\Debug\Dapper.QueryBuilder.dll
+E:\Personal\Examples 2010\QueryBuilder\QueryBuilder\obj\Debug\Dapper.QueryBuilder.pdb

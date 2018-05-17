@@ -1,0 +1,50 @@
+﻿@model Web.Models.Account.UserListViewModel
+
+@{
+    ViewBag.Title = "Reset Password";
+    Layout = "~/Views/Shared/AuthenticateLayout.cshtml";
+}
+@section HeaderScripts
+{
+    @Scripts.Render(Links.Scripts.Pages.AccountList_js)
+}
+<h2>List of Registered Users</h2>
+<div class="examplebg bd-white shadow" id="userTable" style="background-color: #FFC000;">
+
+    <div id="dataTables-1_wrapper" class="dataTables_wrapper" role="grid">
+        <div class="dataTables_length" id="dataTables-1_length">
+            @* <label>
+                Show
+                <select name="dataTables-1_length" aria-controls="dataTables-1" class="">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                entries</label>*@
+        </div>
+        <div id="dataTables-1_processing" class="dataTables_processing" style="visibility: hidden;">Processing...</div>
+        <table class="table striped hovered dataTable shadow"  id="tblUserList" border="0" aria-describedby="dataTables-1_info"  >
+            <thead>
+                <tr class="GridHeader"  role="row">
+                    <th style="width:12%;white-space:nowrap;font-weight:bold;" >UserId</th>
+                    <th style="width:16%;white-space:nowrap;font-weight:bold;" >UserName</th>
+                    <th style="width:10%;white-space:nowrap;font-weight:bold;">Email</th>
+                    <th style="width:8%;white-space:nowrap;font-weight:bold;">Confirmed</th>
+                    <th style="width:8%;white-space:nowrap;font-weight:bold;" >Edit</th>
+                    <th style="width:4%;white-space:nowrap;font-weight:bold;" >Reset</th>
+                    <th style="width:4%;white-space:nowrap;font-weight:bold;" >Delete</th>
+                   
+
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+
+
+        </table>
+        <div class="dataTables_info" id="dataTables-1_info" role="alert" aria-live="polite" aria-relevant="all"></div>
+        <div class="dataTables_paginate paging_simple_numbers" id="dataTables-1_paginate"></div>
+    </div>
+
+</div>

@@ -1,0 +1,217 @@
+﻿ 
+@{
+    ViewBag.Title = "ERAPayerConfig";
+    Layout = "~/Views/Shared/AuthenticateLayout.cshtml";
+}
+
+<style type="text/css">
+    #searchCriteria {
+        margin-top: 20px;
+    }
+
+        #searchCriteria:before {
+            content: "Search";
+        }
+
+    #transactionTable {
+        margin-top: 20px;
+    }
+
+        #transactionTable:before {
+            content: "Results";
+        }
+
+    /* for window style...*/
+    table.gridtable {
+        font-family: verdana,arial,sans-serif;
+        font-size: 11px;
+        color: #333333;
+        border-width: 1px;
+        border-color: #666666;
+        border-collapse: collapse;
+    }
+
+        table.gridtable th {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #CEE7C9;
+            font-weight: bold;
+        }
+
+        table.gridtable td {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+        }
+
+    .dataTable .notSortable {
+        font-weight: bold;
+    }
+
+    table.dataTable thead th {
+        font-weight: bold;
+    }
+
+    sStyleParaText {
+        LIST-STYLE-POSITION: inside;
+        border-spacing: 1000px;
+        padding: 1px;
+        border: #527787;
+    }
+
+    sStyleRowType {
+        FONT-WEIGHT: normal;
+        FONT-SIZE: 8pt;
+        LINE-HEIGHT: 19px;
+        FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+    }
+
+    .backroundcolor {
+        background-color: #65C7BD;
+    }
+
+
+    /* For changing the chosen height...*/
+    .chosen-container-single .chosen-single {
+        height: 33px;
+        line-height: 29px;
+        width: 165%;
+    }
+
+        .chosen-container-single .chosen-single div b {
+            background: url('../Content/chosen-sprite.png') no-repeat scroll 0 6px rgba(0, 0, 0, 0);
+        }
+
+    .chosen-container-active.chosen-with-drop .chosen-single div b {
+        background-position: -18px 6px;
+    }
+
+
+    .chosen-container-single .chosen-single abbr {
+        background: url('../Content/chosen-sprite.png') no-repeat scroll -42px 3px rgba(0, 0, 0, 0);
+    }
+
+        .chosen-container-single .chosen-single abbr:hover {
+            background-position: -42px 3px;
+        }
+
+    .chosen-container a {
+        cursor: pointer;
+    }
+    .chosen-container .chosen-drop {
+         width: 165%;
+    }
+    /*Metro is overriding chosen.. so added this..*/
+    .metro abbr {
+        border-bottom: 1px dotted #999999;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    div.DataTables_sort_wrapper {
+        font-weight: bold;
+    }
+
+    .metro .table th, .metro .table td {
+        font-size: 9pt;
+        word-break: break-all;
+    }
+
+    .chosen-container .chosen-results li {
+        font-size: 9pt;
+    }
+
+    .switch > div > span.switch-default {
+        background: none repeat scroll 0 0 #f00;
+        color: #000000;
+    }
+
+    .switch > div > span.switch-default {
+        background: none repeat scroll 0 0 #ce4c4c;
+        color: #000000;
+    }
+
+    .switch > div > span.switch-primary {
+        background: none repeat scroll 0 0 #45ba07;
+        color: #FFFFFF;
+    }
+
+    .Quickview {
+        background-color: #DDDDDD !important;
+    }
+
+        .Quickview tr {
+            background-color: #DDDDDD !important;
+        }
+        /* to show the correct icon..*/
+ .glyphicon-arrow-right:before {
+content: "\e093";
+}
+  .glyphicon-arrow-left:before {
+content: "\e097";
+}
+  .dataTables_processing {
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3), 0 3px 8px rgba(0, 0, 0, 0.2);
+    font-size: 1.2rem;
+    left: 50%;
+    margin-left: -100px;
+    margin-top: -2em;
+    padding: 20px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 200px;
+}
+</style>
+
+@*@section HeaderScripts
+{
+    @Scripts.Render(Links.Scripts.Pages.ERASettings_js)
+}*@
+<h2><span class="headercontentWhite">ERA Configuration</span></h2>
+
+
+<div class="examplebg shadow" id="searchCriteria" >
+    <script src="~/Scripts/metro.min.js"></script>
+    <table  border="0">
+        <tr>
+            @*<td class="GridHeader left" colspan="6">Search Criteria</td>*@
+        </tr>
+
+        <tr>
+            <td>
+                <div  >
+                    <select data-placeholder="Choose a user name..." size="125" style="width: 100%; font-size: 9pt;" class="chzn-select" id="ddlUsersList">
+                    </select>
+
+                </div>
+            </td>
+            <td></td>
+            <td></td>
+
+            <td class="right"></td>
+
+            <td class="center"></td>
+        </tr>
+    </table>
+
+</div>
+<div class="examplebg bd-white shadow" id="results" style="background-color: #ECFA6A;">
+     <div style="text-align:right" >
+         <button id="savebtn" class="button polaroid bd-white shadow">Save</button>
+         <button id="removebtn" style="visibility:hidden;" class="button polaroid bd-white shadow">Remove all</button>
+    </div>
+    
+<div>
+    <select name="duallistbox_payerlist"  class="payerlist"  multiple="multiple" style="height: 202px;">
+    </select>
+</div>
+   
+</div>
+<div id="dataTables-1_processing" class="dataTables_processing" style="display: none;">Processing...</div>
+
+

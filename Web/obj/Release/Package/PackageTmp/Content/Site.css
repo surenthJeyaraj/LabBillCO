@@ -1,0 +1,187 @@
+﻿
+
+
+/* Styles for basic forms
+-----------------------------------------------------------*/
+fieldset {
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+textarea {
+    min-height: 75px;
+}
+
+.editor-label {
+    margin: 1em 0 0 0;
+}
+
+.editor-field {
+    margin: 0.5em 0 0 0;
+}
+
+.left {
+    text-align: left;
+}
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}
+
+.top {
+    vertical-align: top;
+}
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #f00;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.headercontent {
+    color: #5BB3B3;
+}
+.headercontentWhite {
+    color: #fff;
+}
+
+
+.bgcolor {
+    background-color: #ECFA6A;
+}
+
+.button {
+    font-weight: bold;
+}
+
+.GridHeader {
+    color: #A7A7A7;
+    width: 10px;
+    background-color: #A7A7A7;
+    color: black;
+}
+
+.pageLayout {
+    padding-right: 5%;
+    padding-left: 5%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.examplebg {
+    padding: 20px 40px 20px 60px;
+    border: 1px #ccc solid;
+    position: relative;
+    margin: 0 0 10px 0;
+    background-color: #ECFA6A !important;
+    min-height: 100px;
+}
+
+    .examplebg:before,
+    .examplebg:after {
+        display: table;
+        content: "";
+    }
+
+    .examplebg:after {
+        clear: both;
+    }
+
+    .examplebg:before {
+        position: absolute;
+        content: "";
+        left: -21px;
+        top: 30px;
+        color: #999999 !important;
+        margin: 5px 10px;
+        font-family: 'Segoe UI Semibold_', 'Open Sans Bold', Verdana, Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        color: #000000;
+        font-size: 1.6rem;
+        line-height: 1.6rem;
+        letter-spacing: 0.02em;
+        color: rgba(0, 0, 0, 0.6);
+        font-size: 1.4rem;
+        line-height: 1.4rem;
+        -webkit-transform: rotate(-90deg);
+        -moz-transform: rotate(-90deg);
+        -ms-transform: rotate(-90deg);
+        -o-transform: rotate(-90deg);
+        transform: rotate(-90deg);
+    }
+
+.siteHeading {
+    font-weight: bold;
+}
+.img-bg {
+    background: url('Images/medic_bg.jpg')no-repeat;
+    /*background: url('https://p.w3layouts.com/demos/aug-2016/19-08-2016/classy_login_form/web/images/banner1.jpg') no-repeat;*/
+    background-attachment: fixed; 
+    background-position: center; 
+    background-size: cover; 
+    -webkit-background-size: cover; 
+    -moz-background-size: cover; 
+    -o-background-size: cover; 
+    padding: 0; 
+    margin: 0; 
+
+}
+
+
+.ui-icon { width: 16px; height: 16px; background-image: url(Images/ui-icons_222222_256x240.png)/*{iconsContent}*/; }
+.ui-widget-content .ui-icon {background-image: url(Images/ui-icons_222222_256x240.png)/*{iconsContent}*/; }
+.ui-widget-header .ui-icon {background-image: url(Images/ui-icons_222222_256x240.png)/*{iconsHeader}*/; }
+.ui-state-default .ui-icon { background-image: url(Images/ui-icons_888888_256x240.png)/*{iconsDefault}*/; }
+.ui-state-hover .ui-icon, .ui-state-focus .ui-icon {background-image: url(Images/ui-icons_454545_256x240.png)/*{iconsHover}*/; }
+.ui-state-active .ui-icon {background-image: url(Images/ui-icons_454545_256x240.png)/*{iconsActive}*/; }
+.ui-state-highlight .ui-icon {background-image: url(Images/ui-icons_2e83ff_256x240.png)/*{iconsHighlight}*/; }
+.ui-state-error .ui-icon, .ui-state-error-text .ui-icon {background-image: url(Images/ui-icons_cd0a0a_256x240.png)/*{iconsError}*/; }
+
+.ui-icon-carat-1-n { background-position: 0 0; }
+.ui-icon-carat-1-ne { background-position: -16px 0; }
+.ui-icon-carat-1-e { background-position: -32px 0; }
+.ui-icon-carat-1-se { background-position: -48px 0; }
+.ui-icon-carat-1-s { background-position: -64px 0; }
+.ui-icon-carat-1-sw { background-position: -80px 0; }
+.ui-icon-carat-1-w { background-position: -96px 0; }
+.ui-icon-carat-1-nw { background-position: -112px 0; }
+.ui-icon-carat-2-n-s { background-position: -128px 2px; } /*Changed Vertical position accorting page Style*/
+.ui-icon-carat-2-e-w { background-position: -144px 0; }
+.ui-icon-triangle-1-n { background-position: 0 -16px; }
+.ui-icon-triangle-1-ne { background-position: -16px -16px; }
+.ui-icon-triangle-1-e { background-position: -32px -16px; }
+.ui-icon-triangle-1-se { background-position: -48px -16px; }
+.ui-icon-triangle-1-s { background-position: -64px -12px; } /*Changed Vertical position accorting page Style*/
+.ui-icon-triangle-1-sw { background-position: -80px -16px; }
+.ui-icon-triangle-1-w { background-position: -96px -16px; }
+.ui-icon-triangle-1-nw { background-position: -112px -16px; }
+.ui-icon-triangle-2-n-s { background-position: -128px -16px; }
+.ui-icon-triangle-2-e-w { background-position: -144px -16px; }

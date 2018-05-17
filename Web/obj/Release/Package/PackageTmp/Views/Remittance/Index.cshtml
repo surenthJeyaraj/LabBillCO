@@ -1,0 +1,160 @@
+﻿@{
+    ViewBag.Title = "Remittance";
+    Layout = "~/Views/Shared/AuthenticateLayout.cshtml";
+}
+
+@section HeaderScripts
+{
+    @Scripts.Render(Links.Scripts.Pages.Remittance_js)
+}
+<style type="text/css">
+    .row {
+        display: -webkit-box !important;
+        display: -ms-flexbox !important;
+        display: flex !important;
+        -ms-flex-wrap: wrap !important;
+        flex-wrap: wrap !important;
+        margin-right: -15px !important;
+        margin-left: -15px !important;
+        margin: 0 !important;
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+        padding: 0 !important;
+    }
+
+        .row > div {
+            padding: 15px;
+        }
+
+    .download {
+        text-align: center;
+    }
+
+    .center-align {
+        text-align: center;
+    }
+
+    table.dataTable thead th {
+        font-weight: bold;
+    }
+
+    .heading {
+        font-size: 20px;
+    }
+
+    .row {
+        padding-left: 60px;
+    }
+
+    .content {
+        background: #ffffff;
+    }
+
+    .heading .collapsed {
+        padding-top: 5px;
+    }
+
+    .metro .accordion.with-marker .heading:before {
+        top: 6px !important;
+    }
+
+    .pagination {
+        margin-top: 5px !important;
+    }
+
+    .window {
+        height: 70% !important;
+        width: 80% !important;
+        max-height: 70% !important;
+        overflow: auto !important;
+    }
+
+    .chosen-container {
+        width: 100% !important;
+    }
+
+    .chosen-container-single .chosen-single {
+        height: 34px;
+        line-height: 31px;
+        width: 100%;
+    }
+
+        .chosen-container-single .chosen-single div b {
+            margin-top: 4px;
+        }
+
+    .search-choice-close {
+        margin-top: 4px;
+    }
+
+    #remittanceSection {
+        /*padding: 30px 10px 10px 70px;*/
+    }
+</style>
+<section class="" id="remittanceSection">
+    <h2>Health Care Claim Payment/Advice</h2>
+
+    <div class="accordion with-marker" data-role="accordion" data-closeany="true">
+        <div class="accordion-frame">
+            <a href="#" class="btn btn-info btn-sm heading" style="">Click here for more filters</a>
+            <div class="content" style="display:none;">
+                <form id="formRemittanceFilters">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input type="text" id="ClaimNumber" name="ClaimNumber" class="form-control" placeholder="Claim #" />
+                        </div>
+                        <div class="col-md-3">
+                            <input id="CheckNumber" name="CheckNumber" type="text" class="form-control" placeholder="Check #" />
+                        </div>
+                        <div class="col-md-3">
+                            <input id="PaidAmount" name="PaidAmount" type="text" class="form-control" placeholder="Amount($)" />
+                        </div>
+                        <div class="col-md-3">
+                            <select data-placeholder="Choose a payer name..." style="width:100%;font-size:9pt;" class="chzn-select" id="PayerName"></select>
+                                          
+                             </div>
+                        <div class="col-md-3">
+                            <div class="input-group" data-role="datepicker" data-format="mm/dd/yyyy" id="receivedDatePickerFrom">
+                                <input type="text" id="ReceivedDateTimeFrom" class="form-control" name="ReceivedDateTimeFrom" placeholder="Received Date From">
+                                <button class="btn btn-default btn-date btn-datepicker" type="button"><span class="mif-calendar"></span></button>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group" data-role="datepicker" data-format="mm/dd/yyyy" id="receivedDatePickerFrom">
+                                <input type="text" id="ReceivedDateTimeTo" class="form-control" name="ReceivedDateTimeTo" placeholder="Received Date To">
+                                <button class="btn btn-default btn-date btn-datepicker" type="button"><span class="mif-calendar"></span></button>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <input id="BillingTaxId" name="BillingTaxId" class="form-control" type="text" placeholder="Identification Code" />
+                        </div>
+                        <div class="col-md-3">
+                            <button id="btnSearch" type="button" class="btn btn-success">Search</button>
+                            <button id="btnClear" type="button" class="btn btn-warning">Clear All</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="examplebg bd-white shadow" id="remittanceTable" style="background-color: #ECFA6A;">
+        <div id="ajax_loader" class="dataTables_processing" style="display:none;">Processing...</div>
+        <table id="tblRemittance" style="width: 100%">
+            <thead>
+                <tr>
+                    <th>File#</th>
+                    <th>Payer Name</th>
+                    <th>Payee Name</th>
+                    <th>Identification Code</th>
+                    <th>Amount($)</th>
+                    <th>No of Claims</th>
+                    <th>Received Date</th>
+                    <!--<th>Action</th>-->
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+    </div>
+
+</section>

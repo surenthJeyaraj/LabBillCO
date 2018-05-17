@@ -1,0 +1,98 @@
+﻿@model Web.Models.Account.RegisterModel
+@{
+    ViewBag.Title = "Register";
+    var items = Model.Roles.Select(x => new SelectListItem()
+    {
+        Text = x,
+        Value = x
+    });
+    Layout = "~/Views/Shared/AuthenticateLayout.cshtml";
+}
+
+@section HeaderScripts
+{
+    <style type="text/css">
+        #accountformSection {
+            padding: 30px 10px 10px 70px;
+        }
+
+            #accountformSection:before {
+                position: absolute;
+                content: "Registeration Form";
+                left: -75px;
+                top: 90px;
+                color: #FFC000 !important;
+                margin: 5px 10px;
+                font-family: 'Segoe UI Semibold_', 'Open Sans Bold', Verdana, Arial, Helvetica, sans-serif;
+                font-weight: bold;
+                color: #000000;
+                line-height: 1.6rem;
+                letter-spacing: 0.02em;
+                color: rgba(0, 0, 0, 0.6);
+                font-size: 2rem;
+                line-height: 1.4rem;
+                -webkit-transform: rotate(-90deg);
+                -moz-transform: rotate(-90deg);
+                -ms-transform: rotate(-90deg);
+                -o-transform: rotate(-90deg);
+                transform: rotate(-90deg);
+            }
+    </style>
+
+}
+<section class="example" id="accountformSection">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+       
+
+        <fieldset>
+            @*   <legend class="select">Registration Form</legend>*@
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "input-control text", @placeholder = "Username" })
+                    </div>
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "input-control text", @placeholder = "First Name" })
+                    </div>
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "input-control text", @placeholder = "Last Name" })
+                    </div>
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.EmailAddress, new { @class = "input-control text", @placeholder = "Email" })
+                    </div>
+                    <div class="col-md-12">
+                        @Html.DropDownListFor(m => m.SelectedRole, items, new { @class = "input-control select" })
+                    </div>
+                    <div class="col-md-12">
+                        <input type="submit" value="Register" />
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    @Html.ValidationSummary()
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </fieldset>
+    }
+</section>
+
+

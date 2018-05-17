@@ -1,0 +1,89 @@
+﻿@model Web.Models.Account.ConfirmPasswordForTheAccountModel
+@{
+    ViewBag.Title = "Authenticate";
+    Layout = "~/Views/Shared/_LayoutBeforeLogin.cshtml";
+}
+@section HeaderScripts
+{
+     @Scripts.Render(Links.Scripts.Pages.ChangePassword_js)
+}
+ <style type="text/css">
+          #accountformSection{
+            padding:30px 10px 10px 70px
+        }
+
+        #accountformSection:before {
+       
+
+        position: absolute;
+        content: "Confirm Account";
+        left: -68px;
+        top: 90px;
+        color: #FFC000 !important;
+        margin: 5px 10px;
+        font-family: 'Segoe UI Semibold_', 'Open Sans Bold', Verdana, Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        color: #000000;
+     
+        line-height: 1.6rem;
+        letter-spacing: 0.02em;
+        color: rgba(0, 0, 0, 0.6);
+        font-size: 2rem;
+        line-height: 1.4rem;
+        -webkit-transform: rotate(-90deg);
+        -moz-transform: rotate(-90deg);
+        -ms-transform: rotate(-90deg);
+        -o-transform: rotate(-90deg);
+        transform: rotate(-90deg);
+    }
+         .metro .input-control.text{
+            cursor:text;
+        }
+
+         .metro .input-control.password{
+            cursor:text;
+        }
+    </style>
+
+@*<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>Confirm Creation</h2>
+</hgroup>*@
+<section class="example" id="accountformSection">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <fieldset>
+          @*  <legend class="select">Confirm Authentication</legend>*@
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                    @Html.LabelFor(m => m.UserName)
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "input-control text",@readonly="readonly" })
+                    @Html.HiddenFor(x=>x.ConfirmationToken)
+                </div>
+                  <div class="col-md-12">
+                    @Html.LabelFor(x => x.Password)
+                    @Html.PasswordFor(m => m.Password,  new { @class = "input-control password",@placeholder="password", 
+                                                              @data_hint="The password should be 8 to 16 characters long with atleast one number, one upper & lowercase and one symbol" ,
+                                                              @data_hint_position="right"})
+                </div>
+                <div class="col-md-12">
+                    @Html.LabelFor(m => m.ConfirmPassword)
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input-control password",@placeholder="password" })
+                </div>
+                <div class="col-md-12">
+                    <input id="btnSave" type="submit" value="Register" />
+                </div>
+                        
+                    </div> 
+                </div>
+                <div class="col-md-6">
+                      @Html.ValidationSummary()
+                </div>
+            </div>
+        </fieldset>
+    }
+</section>

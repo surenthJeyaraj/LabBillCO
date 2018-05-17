@@ -1,0 +1,178 @@
+﻿@{
+    ViewBag.Title = "Remittance";
+    Layout = "~/Views/Shared/AuthenticateLayout.cshtml";
+}
+
+@section HeaderScripts
+{
+    @Scripts.Render(Links.Scripts.Pages.Remittance_js)
+}
+<script src="~/Scripts/metro.min.js"></script>
+<script src="~/Scripts/jquery.mask.min.js"></script>
+<script src="~/Scripts/custom-validations.js"></script>
+<style type="text/css">
+    .row {
+        display: -webkit-box !important;
+        display: -ms-flexbox !important;
+        display: flex !important;
+        -ms-flex-wrap: wrap !important;
+        flex-wrap: wrap !important;
+        margin-right: -15px !important;
+        margin-left: -15px !important;
+        margin: 0 !important;
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+        padding: 0 !important;
+    }
+
+        .row > div {
+            padding: 15px;
+        }
+
+    .download {
+        text-align: center;
+    }
+
+    .center-align {
+        text-align: center;
+    }
+
+    table.dataTable thead th {
+        font-weight: bold;
+    }
+
+    .heading {
+        font-size: 20px;
+    }
+
+    .row {
+        padding-left: 60px;
+    }
+
+    .content {
+        background: #ffffff;
+    }
+
+    .heading .collapsed {
+        padding-top: 5px;
+    }
+
+    .metro .accordion.with-marker .heading:before {
+        top: 6px !important;
+    }
+
+    .pagination {
+        margin-top: 5px !important;
+    }
+
+    .window {
+        height: 70% !important;
+        width: 80% !important;
+        max-height: 70% !important;
+        overflow: auto !important;
+    }
+
+    .chosen-container {
+        width: 100% !important;
+    }
+
+    .chosen-container-single .chosen-single {
+        height: 34px;
+        line-height: 31px;
+        width: 100%;
+    }
+
+        .chosen-container-single .chosen-single div b {
+            margin-top: 4px;
+        }
+
+    .search-choice-close {
+        margin-top: 4px;
+    }
+
+    #remittanceSection {
+        /*padding: 30px 10px 10px 70px;*/
+    }
+
+    .btn-datepicker {
+        height: 1.85rem;
+        padding: 0 0.6rem;
+        margin: 0;
+    }
+</style>
+<section class="" id="remittanceSection">
+    <h4>Health Care Claim Payment/Advice</h4>
+    <div class="col-md-6" style="margin:10px auto" id="VALIDATION_MESSAGES"> </div>
+    <div class="accordion with-marker" data-role="accordion" data-closeany="true">
+        <div class="accordion-frame">
+            <a href="#" class="btn btn-info btn-sm heading" style="">Click here for more filters</a>
+            <div class="content sminput-container" style="display:none;">
+                <form id="formRemittanceFilters" name="formRemittanceFilters">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="input-group input-group-sm mb-1">
+                                <input type="text" id="FileNumber" name="FileNumber" class="form-control" placeholder="File # " />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group input-group-sm mb-1">
+                                <input id="PayeeName" name="PayeeName" type="text" class="form-control" placeholder="Payee Name" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group input-group-sm mb-1">
+                                <input id="PaidAmount" name="PaidAmount" type="text" class="form-control" placeholder="Amount($)" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group input-group-sm mb-1">
+                                <select data-placeholder="Choose a payer name..." style="width:100%;font-size:9pt;" class="chzn-select form-control" id="PayerName" name="PayerName"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group input-group-sm mb-1" data-role="datepicker" data-format="mm/dd/yyyy" id="receivedDatePickerFrom">
+                                <input type="text" id="ReceivedDateTimeFrom" class="form-control" name="ReceivedDateTimeFrom" placeholder="Received Date From">
+                                <button class="button btn-datepicker"><span class="mif-calendar"></span></button>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group input-group-sm mb-1" data-role="datepicker" data-format="mm/dd/yyyy" id="receivedDatePickerFrom">
+                                <input type="text" id="ReceivedDateTimeTo" class="form-control" name="ReceivedDateTimeTo" placeholder="Received Date To">
+                                <button class="button btn-datepicker"><span class="mif-calendar"></span></button>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group input-group-sm mb-1">
+                                <input id="IdetificationCode" name="IdetificationCode" class="form-control" type="text" placeholder="Identification Code" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <button id="btnSearch" type="button" class="btn btn-success btn-sm">Search</button>
+                            <button id="btnClear" type="button" class="btn btn-warning btn-sm">Clear All</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="examplebg bd-white shadow" id="remittanceTable" style="background-color: #ECFA6A;">
+        <div id="ajax_loader" class="dataTables_processing" style="display:none;">Processing...</div>
+        <table id="tblRemittance" style="width: 100%">
+            <thead>
+                <tr>
+                    <th>File#</th>
+                    <th>Payer Name</th>
+                    <th>Payee Name</th>
+                    <th>Identification Code</th>
+                    <th>Amount($)</th>
+                    <th>No of Claims</th>
+                    <th>Received Date</th>
+                    <!--<th>Action</th>-->
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+    </div>
+
+</section>

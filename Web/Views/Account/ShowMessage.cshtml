@@ -1,0 +1,33 @@
+﻿@model Web.Models.Account.ShowMessageModel
+
+@{
+    ViewBag.Title = "Show Message";
+    Layout = "~/Views/Shared/_LayoutBeforeLogin.cshtml";
+    var message = Model.ToString();
+}
+@section HeaderScripts
+{
+    <style type="text/css">
+        #accountformSection {
+            color: #FFC000;
+        }
+         #accountformSection a {
+             font-size: 2rem;
+        }
+         #accountformSection:before {
+             position: absolute;
+             content: "";
+         }
+    </style>
+}
+<section class="example" id="accountformSection">
+
+    <div class="row">
+        <h4>@Model.Message</h4>
+        <div class="col-md-12">
+            <a href="@Model.ActionLink">@Model.ActionMessage</a>
+        </div>
+    </div>
+
+
+</section>

@@ -1,0 +1,247 @@
+﻿@using System.Web.UI.WebControls
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="product" content="AuvTox Portal">
+        <meta name="description" content="AuvTox portal to Key entry the details">
+        <meta name="author" content="Sagitec - Chennai">
+
+        <!--Stylesheets here-->
+        @Styles.Render("~/Content/css")
+        @Styles.Render("~/Content/metro")
+        @Styles.Render("~/Content/bootstrap")
+        @Styles.Render("~/Content/toastr")
+        @Styles.Render("~/Content/duallistbox")
+        @Styles.Render("~/Content/jquerydatatable")
+
+
+        <!-- Load JavaScript Libraries -->
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/bundles/jqueryaddons")
+        @Scripts.Render("~/bundles/jquerydatatable")
+        @Scripts.Render("~/bundles/metro")
+        @Scripts.Render("~/bundle/toastr")
+        @Scripts.Render("~/bundle/duallistbox")
+        @*    @Scripts.Render("~/bundles/bootstrap")*@
+        <!-- Metro UI CSS JavaScript plugins -->
+        @* background-color:#4888b7;*@
+
+        @*background-color: #5BB3B3; -Green*@
+
+    <!-- Local JavaScript -->
+    <title>AVUTOX Portal ::  @ViewBag.Title</title>
+    <style type="text/css">
+        html, body {
+            height: 100%;
+            background-color: #5bb3b3;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        .primary-container {
+            padding: 15px 7%;
+            margin-bottom: 30px;
+        }
+
+        .primary-navbar {
+            padding: 0 1rem;
+            background: #2d313c;
+        }
+
+            .primary-navbar .navbar-brand {
+                font-size: 1.0rem;
+            }
+
+            .primary-navbar .nav-link {
+                font-size: 0.8rem;
+            }
+
+            .primary-navbar a {
+                color: #fff;
+            }
+
+            .primary-navbar .navbar-text {
+                padding: 0;
+            }
+
+        #wrap {
+            min-height: 100%;
+            height: auto; /* Negative indent footer by its height */
+            margin: 0 auto -45px; /* Pad bottom by footer height */
+            padding: 0 0 60px;
+        }
+
+        footer {
+            padding: 3px;
+            background-color: #2d313c;
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            font-size: 0.8rem;
+            color: #ddd;
+        }
+
+            footer span {
+                float: right;
+                padding: 3px 15px;
+                height: auto;
+            }
+
+                footer span img {
+                    height: 25px;
+                    width: auto;
+                    margin-right: 10px;
+                }
+        .dataTable-header-wrapper {
+            height: 45px;
+            vertical-align: top;
+            margin-top: 30px;
+            text-align: center;
+        }
+        .dataTable-header-wrapper .dataTables_paginate {
+            float:right !important;
+        }
+        .dataTable-header-wrapper .dataTables_filter, .dataTable-header-wrapper .dataTables_length, .dataTable-header-wrapper .dataTables_filter label, .dataTable-header-wrapper .dataTables_length label {
+            margin: 0;
+        }
+        .dataTable-header-wrapper .dataTables_filter {
+            display: inline-block;
+            float:none;
+        }
+        .dataTable-header-wrapper .dataTables_length{
+            float:left !important;
+        } 
+        .dataTable-header-wrapper .dataTables_filter input {
+            font-size: 0.8rem;
+        }
+        .dataTable-footer-wrapper{
+            margin-top:10px;
+        }
+        .dataTable-footer-wrapper .dataTables_info {
+            background-color: transparent;
+            color: #404757;
+        }
+        .dataTables_processing {
+            height: auto;
+            width: auto;
+            color: #cccfd8;
+            padding: 10px 20px;
+            z-index: 90;
+            background-color: #343b4c;
+        } 
+        .paging_full_numbers .ui-button {
+            color: #292b2c;
+            background-color: #fff;
+            border-color: #ccc;
+            display: inline-block;
+            font-weight: 400;
+            line-height: 1.25;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            border: 1px solid #ccc;
+            padding: .2rem 0.8rem;
+            font-size: 0.8rem;
+            margin: -1px;
+        }
+        .bg-container table.dataTable tr td {
+            font-size: 0.8rem;
+            padding: 8px 10px;
+        }
+        .bg-container table.dataTable tr th {
+            padding: 8px 10px;
+        }
+        .dataTable.hovered tbody tr:hover, .dataTable.hovered tbody tr:hover td.sorting_1 {
+            background-color: rgb(91, 179, 179);
+            color: #fff;
+        }
+        table.dataTable tr.odd td.sorting_1, table.dataTable tr.even td.sorting_1 {
+            background-color: inherit;
+        }
+        .dataTable thead {
+            border-bottom: 2px solid #e0d9d9;
+        }
+        table.dataTable > thead tr th, table > thead tr th {
+            text-align: center;
+            background: #dde8e8;
+            border-collapse: collapse;
+            border: 1px solid #aebcdc;
+            color: #52677a;
+            padding: 8px 10px;
+        }
+
+        table.dataTable > tbody tr td, table > tbody tr td {
+            border-collapse: collapse;
+            border: 1px solid #aebcdc;
+            font-size: 0.8rem;
+            padding: 8px 10px;
+        }
+        table.dataTable tbody tr:nth-child(odd) {
+            background: #eeeeee;
+        }
+        .dataTable tbody tr.odd:hover, .dataTable tbody tr.even:hover {
+            background-color: rgb(91, 179, 179) !important;
+            color: #fff !important;
+        }
+    </style>
+    @RenderSection("HeaderScripts", false)
+    @RenderSection("scripts", false)
+
+
+</head>
+    @{
+        var name = string.Format("Welcome {0} {1}", (string)ViewBag.UserData.FirstName, (string)ViewBag.UserData.LastName);
+       
+    }
+<body  data-baseurl="@Url.Content("~")">
+<nav class="navbar navbar-expand-md navbar-inverse bg-inverse sticky-top primary-navbar">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="@Url.Action("Welcome","Transaction")">LabBillCo Portal <sup>1.0</sup></a>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action( "Welcome", "Transaction")">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action( "index", "Remittance")">Remittance</a>
+            </li>
+            @if (User.IsInRole("SuperAdministrator") || User.IsInRole("Checker"))
+    {
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action(  "Manage", "Account")">User Management</a>
+
+        </li>
+}
+
+        </ul>
+        <span class="navbar-text">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    @Html.ActionLink(name, "UserSettings", "Account", null, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Log Off", "LogOff", "Account", null, new { @class = "nav-link" })
+                </li>
+            </ul>
+        </span>
+    </div>
+</nav>
+    <!-- Wrap all page content here -->
+<div class="container-fluid primary-container">
+    <!-- Begin page content -->
+    @RenderBody()
+</div>
+<footer class="footer ">
+    <span class=""><img src="~/Images/brand_logo.png" />SagitecHLS</span>
+</footer>
+</body>
+</html>

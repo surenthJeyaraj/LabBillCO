@@ -1,0 +1,40 @@
+﻿@model Web.Models.Account.RegisterModel
+
+@{
+    ViewBag.Title = "Edit Registered User";
+    Layout = "~/Views/Shared/AuthenticateLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+<section class="example">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+
+        <fieldset>
+            <legend class="select">Registration Form</legend>
+            <div class="row">
+              
+                <div class="col-md-3">
+
+                    @Html.LabelFor(m => m.UserName)
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "input-control text",@readonly="readonly" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(x => x.Roles)
+                    @Html.DropDownListFor(m => m.SelectedRole, items, new { @class = "input-control select" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(m => m.EmailAddress)
+                    @Html.TextBoxFor(m => m.EmailAddress, new { @class = "input-control text" })
+                </div>
+                <div class="col-md-3">
+                    <input type="submit" value="Register" />
+                </div>
+            </div>
+            
+
+        </fieldset>
+    }
+</section>

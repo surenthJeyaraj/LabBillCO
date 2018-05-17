@@ -1,0 +1,243 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "999/997 Level Rejected Claims";
+    // Layout = "RejectionDetailsList.cshtml";
+}
+
+
+@section HeaderScripts
+{
+    @Scripts.Render(Links.Scripts.Pages.RejectionDetailsList_js)
+}
+
+
+
+
+<style type="text/css">
+    #searchCriteria
+    {
+        margin-top: 20px;
+    }
+    #searchCriteria:before
+    {
+        content: "Search";
+    }
+    #RejectionListTable:before {
+        content: "Results";
+    }
+    #searchCriteria table tbody tr:nth-child(2) td
+    {
+        padding-top: 10px;
+    }
+   
+    /* for window style...*/
+    table.gridtable
+    {
+        font-family: verdana,arial,sans-serif;
+        font-size: 11px;
+        color: #333333;
+        border-width: 1px;
+        border-color: #666666;
+        border-collapse: collapse;
+    }
+
+        table.gridtable th
+        {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #CEE7C9;
+            font-weight: bold;
+        }
+
+        table.gridtable td
+        {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+        }
+
+    .dataTable .notSortable
+    {
+        font-weight: bold;
+    }
+
+    table.dataTable thead th
+    {
+        font-weight: bold;
+    }
+
+
+
+
+    sStyleParaText
+    {
+        LIST-STYLE-POSITION: inside;
+        border-spacing: 1000px;
+        padding: 1px;
+        border: #527787;
+    }
+
+    sStyleRowType
+    {
+        FONT-WEIGHT: normal;
+        FONT-SIZE: 8pt;
+        LINE-HEIGHT: 19px;
+        FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+    }
+
+    .backroundcolor
+    {
+        background-color: #65C7BD;
+    }
+
+
+    /* For changing the chosen height...*/
+    .chosen-container-single .chosen-single
+    {
+        height: 33px;
+        line-height: 29px;
+        width: 100%;
+    }
+
+        .chosen-container-single .chosen-single div b
+        {
+            background: url('../Content/chosen-sprite.png') no-repeat scroll 0 6px rgba(0, 0, 0, 0);
+        }
+
+    .chosen-container-active.chosen-with-drop .chosen-single div b
+    {
+        background-position: -18px 6px;
+    }
+
+
+    .chosen-container-single .chosen-single abbr
+    {
+        background: url('../Content/chosen-sprite.png') no-repeat scroll -42px 3px rgba(0, 0, 0, 0);
+    }
+
+        .chosen-container-single .chosen-single abbr:hover
+        {
+            background-position: -42px 3px;
+        }
+
+    .chosen-container a
+    {
+        cursor: pointer;
+    }
+
+    /*Metro is overriding chosen.. so added this..*/
+    .metro abbr
+    {
+        border-bottom: 1px dotted #999999;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    div.DataTables_sort_wrapper
+    {
+        font-weight: bold;
+    }
+
+    .metro .table th, .metro .table td
+    {
+        font-size: 9pt;
+        word-break: break-all;
+    }
+
+    .chosen-container .chosen-results li
+    {
+        font-size: 9pt;
+    }
+
+    .switch > div > span.switch-default
+    {
+        background: none repeat scroll 0 0 #f00;
+        color: #000000;
+    }
+
+    .switch > div > span.switch-default
+    {
+        background: none repeat scroll 0 0 #ce4c4c;
+        color: #000000;
+    }
+
+    .switch > div > span.switch-primary
+    {
+        background: none repeat scroll 0 0 #45ba07;
+        color: #FFFFFF;
+    }
+
+    .Quickview
+    {
+        background-color: #DDDDDD !important;
+    }
+
+        .Quickview tr
+        {
+            background-color: #DDDDDD !important;
+        }
+</style>
+<input type="hidden" value="@ViewBag.PostedDate" id="hidPosteddate" />
+<div class="examplebg bd-white shadow" id="searchCriteria" style="background-color: #ECFA6A;">
+    <table class="shadow" border="0" style="width: 100%">
+        <tr>
+            <td class="GridHeader left" colspan="6">Search Criteria</td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                <div class="input-control text" data-role="input-control">
+                    <input type="text" id="transactionNo" placeholder="Transaction #" />
+
+                </div>
+            </td>
+            <td style="width: 25%">
+                <div class="input-control text" id="datePickerFrom">
+                    <input type="text" id="postedDateFrom">
+                    <button class="btn-date"></button>
+                </div>
+            </td>
+            <td style="width: 25%">
+                <div class="input-control text" id="datePickerTo">
+                    <input type="text" id="postedDateTo">
+                    <button class="btn-date"></button>
+                </div>
+            </td>
+            <td class="right">
+                <button id="searchButton" class="button polaroid bd-white shadow">Search</button>
+            </td>
+            <td class="center">
+                <button id="cancelButton" class="button polaroid bd-white shadow">Cancel</button>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="examplebg bd-white shadow" id="RejectionListTable" style="background-color: #FFC000;">
+    <div id="dataTables-1_wrapper" class="dataTables_wrapper" role="grid">
+        <div class="dataTables_length" id="dataTables-1_length">
+        </div>
+        <div id="dataTables-1_processing" class="dataTables_processing" style="visibility: hidden;">Processing...</div>
+        <table class="table striped hovered dataTable shadow" id="tblRejectionList" border="0" aria-describedby="dataTables-1_info">
+            <thead>
+                <tr class="GridHeader" role="row">
+                    <th style="width:15%">Transaction#</th>
+                    <th style="width:10%">Claim#</th>
+                     <th style="width:10%">Download</th>
+                   @* <th style="width:10%">Loop ID</th>
+                    <th style="width:8%">Segment ID</th>
+                    <th style="width:8%">Element ID</th>
+                    <th style="width:35%">Error Description</th>*@
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <div class="dataTables_info" id="dataTables-1_info" role="alert" aria-live="polite" aria-relevant="all"></div>
+        <div class="dataTables_paginate paging_simple_numbers" id="dataTables-1_paginate"></div>
+    </div>
+
+</div>
+

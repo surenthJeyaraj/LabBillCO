@@ -1,0 +1,1153 @@
+﻿
+
+@using System.Web.UI.WebControls
+@{
+    ViewBag.Title = "HL7EntryDetails";
+    Layout = "~/Views/Shared/AuthenticateLayout.cshtml";
+}
+
+<h2>Lab Scan Order Form</h2>
+
+<style>
+    .form-section, .field-container {
+        margin: 0px !important;
+        display: flex !important;
+    }
+
+    .field-container {
+    }
+
+    .field-section {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .section-title {
+        display: block;
+        width: 100%;
+    }
+
+    .input-control.checkbox, .input-control.radio {
+        line-height: 0 !important;
+        margin: 0px !important;
+    }
+
+        .input-control.checkbox.checkbox-l {
+            line-height: 1 !important;
+            margin: 0.5rem 0 !important;
+            height: auto;
+            display: block;
+        }
+
+            .input-control.checkbox.checkbox-l .check {
+                position: absolute;
+            }
+
+            .input-control.checkbox.checkbox-l .caption {
+                margin-left: 22px;
+                -webkit-box-decoration-break: clone;
+                box-decoration-break: clone;
+            }
+
+    .input-control.small-check .check:before {
+        width: 9px !important;
+        height: 5px !important;
+        margin-left: -5px !important;
+    }
+
+    .sminput-container .input-control.radio .check:before {
+        width: 100% !important;
+        height: 100% !important;
+        margin-left: 0 !important;
+        margin-top: 0 !important;
+        left: 0;
+        top: 0;
+        background-color: #193c3c;
+        border: 1px solid #fff;
+        border-color: #eef7f7 !important;
+    }
+
+    .sminput-container .input-group-sm > .form-control {
+        padding: .20rem;
+        font-size: 0.8rem;
+        line-height: 0;
+        border-radius: .1rem;
+    }
+
+    .sminput-container .input-group-sm > select.form-control {
+        height: calc(1.5rem + 2px) !important;
+    }
+
+    .sminput-container .input-control {
+        display: inline-block;
+        min-height: 1rem;
+        height: 1.3rem;
+        position: relative;
+        vertical-align: middle;
+        margin: .325rem 0;
+        line-height: 1;
+        font-size: 0.8rem;
+    }
+
+    .sminput-container .input-group-sm > .input-group-btn .btn {
+        padding: .2rem;
+        font-size: 1rem;
+        line-height: 0;
+        border-radius: .1rem;
+    }
+
+    .float-btn {
+        position: absolute !important;
+        right: 60px;
+        z-index: 90;
+    }
+
+    .custom-tab-head {
+        margin-left: 0px !important;
+        padding-left: 0px !important;
+    }
+
+        .custom-tab-head a {
+            color: #2A484B;
+        }
+
+        .custom-tab-head.nav-tabs .nav-link.active, .custom-tab-head.nav-tabs .nav-link:hover {
+            color: #ffffff;
+            border-color: #7fd4d4;
+            background-color: #3c8484;
+        }
+
+        .custom-tab-head.nav-tabs .nav-item.nav-item-btn {
+            position: relative;
+        }
+
+            .custom-tab-head.nav-tabs .nav-item.nav-item-btn a {
+                padding-right: 1.8rem;
+            }
+
+            .custom-tab-head.nav-tabs .nav-item.nav-item-btn button {
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                width: 1.2rem;
+                height: 1.2rem;
+                font-size: .5rem;
+                line-height: 0.9rem;
+            }
+
+    .custom-tab-content {
+        border: 1px solid #7fd4d4;
+        border-top: 0px;
+        margin-top: 0px;
+        padding: 10px;
+        position: relative;
+    }
+
+    #outerContainer #mainContainer div.toolbar {
+        display: none !important; /* hide PDF viewer toolbar */
+    }
+
+    #outerContainer #mainContainer #viewerContainer {
+        top: 0 !important; /* move doc up into empty bar space */
+    }
+
+    .tab-nav-group {
+        text-align: right;
+        position: absolute;
+        bottom: 5px;
+        right: 0px;
+        padding-right: 5px;
+    }
+
+        .tab-nav-group > button {
+            padding: 6px 12px;
+            color: #fff;
+        }
+
+    .nav-tabs .nav-item.nav-btn {
+        margin-top: 5px;
+    }
+
+    .custom-tab-head {
+        position: relative;
+        border-bottom: 1px solid #7fd4d4;
+    }
+
+        .custom-tab-head .nav-item.nav-btn {
+            position: absolute;
+            right: 0;
+            margin-top: 0px;
+        }
+
+            .custom-tab-head .nav-item.nav-btn > button {
+                padding: 6px 12px;
+                color: #fff;
+            }
+
+    .btn-datepicker {
+        height: 1.59rem;
+        padding: 0 0.6rem;
+        margin: 0;
+    }
+
+    .icon-button {
+        padding: 4px;
+        cursor: pointer;
+        border: 1px solid #7bd1d1;
+        background: #3f8989;
+        color: #fff;
+    }
+</style>
+
+
+@Scripts.Render(Links.Scripts.Pages.HL7EntryForm_js)
+
+
+<script src="~/Scripts/metro.min.js"></script>
+<script src="~/Scripts/jquery.mask.min.js"></script>
+<script src="~/Scripts/custom-validations.js"></script>
+<div class="list-group">
+
+</div>
+<div class="list-group">
+
+</div>
+<div class="list-group">
+
+
+</div>
+<div class="col-md-6">
+    <img src="~/Images/ajax-loader.gif" id="loader" alt="Loading" />
+</div>
+<!--  <div class="content">-->
+@*<form id="Hl7EntryForm">*@
+<!-- <div class="grid fluid">-->
+<div class="col-md-6" style="margin:10px auto" id="VALIDATION_MESSAGES"> </div>
+<div class="row">
+    <div class="col-md-6">
+
+        <iframe style="width: 100%; min-height: 92vh; height: auto; overflow:hidden; " id="pdf_iframe"></iframe>
+        @*<object data="http://www.pdf995.com/samples/pdf.pdf#toolbar=0&navpanes=0" type="application/pdf" style="width: 100%; min-height: 92vh; height: auto;"></object>*@
+    </div>
+    <div class="col-md-6 sminput-container">
+        <ul class="nav nav-tabs custom-tab-head" id="custom-tab-head" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="order-tab" href="#ordertab" role="tab" aria-controls="home" aria-selected="true">Order</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pid-tab" href="#pidtab" role="tab" aria-controls="contact" aria-selected="false">PID</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="dg1-tab" href="#dg1tab" role="tab" aria-controls="profile" aria-selected="false">DG 1</a>
+            </li>
+            <li class="nav-item nav-item-btn">
+                <a class="nav-link insurance-tabs" id="in1-tab" href="#in1tab" role="tab" aria-controls="contact" aria-selected="false">IN 1</a>
+                <button id="AddInsurance" type="button" class="cycle-button mini-button success"><span class="mif-plus"></span></button>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pv1-tab" href="#pv1tab" role="tab" aria-controls="contact" aria-selected="false">PV 1</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="ft1-tab" href="#ft1tab" role="tab" aria-controls="contact" aria-selected="false">FT 1</a>
+            </li>
+            <li class="nav-item nav-btn">
+                <button id="saveButton" type="button" class="btn btn-success btn-sm" value="1"> Save</button>
+                <button type="button" id="SubmitButton" class="btn btn-primary btn-sm">Submit</button>
+            </li>
+        </ul>
+        <div class="tab-content custom-tab-content" id="myTabContent" style="min-height:75vh; padding-bottom: 40px;">
+            <div class="tab-pane fade show active" id="ordertab" role="tabpanel" aria-labelledby="order-tab">
+                <form name="order-form">
+                    <div class="row form-section">
+                        <div class="col-md-10">
+                            <div class="row field-container">
+                                <h5 class="section-title">Order Details</h5>
+                                <!-- Order ID Field -->
+                                <div class="col-md-4"><label class="input-control">Scan ID</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <input type="text" name="OrderID" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+                                <!-- Order Date Field -->
+                                <div class="col-md-4"><label class="input-control">Order Date</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm mb-1" data-role="datepicker" data-format="mm/dd/yyyy">
+                                        <input type="text" name="OrderDate" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                        <button class="button btn-datepicker"><span class="mif-calendar"></span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 tab-nav-group">
+                            <button type="button" class="btn btn-primary btn-sm" onclick="navTab('order-form','pidtab');">< Previous</button>
+                            <button type="button" class="btn btn-success btn-sm" onclick="navTab('order-form','pidtab');">Next ></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="tab-pane fade show" id="dg1tab" role="tabpanel" aria-labelledby="dg1-tab">
+                <form name="dg1-form">
+                    <div class="row form-section">
+                        <div class="row field-container">
+                            <h5 class="section-title ml-2">Diagnosis Codes</h5>
+                            <!-- <div class="col-md-6"><label class="input-control">Diagnosis Codes</label></div> -->
+                            <div class="col-md-12 mt-2" id="all_diagnosis_codes">
+                                <label class="input-control checkbox small-check">
+                                    <input type="checkbox" value="1001" name="dg1_code"> <span class="check"></span>
+                                    <span class="caption">1001</span>
+                                </label>
+                                <label class="input-control checkbox small-check">
+                                    <input type="checkbox" value="1002" name="dg1_code"> <span class="check"></span>
+                                    <span class="caption">1002</span>
+                                </label>
+                                <label class="input-control checkbox small-check">
+                                    <input type="checkbox" value="1003" name="dg1_code"> <span class="check"></span>
+                                    <span class="caption">1003</span>
+                                </label>
+                                <label class="input-control checkbox small-check">
+                                    <input type="checkbox" value="1004" name="dg1_code"> <span class="check"></span>
+                                    <span class="caption">1004</span>
+                                </label>
+                            </div>
+                            <div class="input-group input-group-sm mt-2 col-md-6">
+                                <input type="text" class="form-control" id="new_diagnosis_code">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" onclick="addDiagnosisCode();"><span class="mif-plus fg-green"></span></button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </div>
+                        <div class="col-md-12 tab-nav-group">
+                            <button type="button" class="btn btn-primary btn-sm" onclick="navTab('dg1-form','pidtab');">< Previous</button>
+                            <button type="button" class="btn btn-success btn-sm" onclick="navTab('dg1-form','in1tab');">Next ></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="tab-pane fade show" id="in1tab" role="tabpanel" aria-labelledby="in1-tab" data-repeater-list="group-a">
+                <!-- <div  data-repeater-list="group-a"> -->
+                <!-- <input data-repeater-create type="button" class="btn btn-sm btn-success float-btn" value="Add"/> -->
+                <!-- <input type="button" class="btn btn-sm btn-success float-btn" value="Add" onclick="addInsurance();"/> -->
+                <form name="in1-form">
+                    <div class="row form-section">
+                        <div class="col-md-11">
+                            <div class="row field-container payer-fields">
+                                <h5 class="section-title">Payer</h5>
+                                <div class="col-md-4"><label class="input-control">Bill To</label></div>
+                                <div class="col-md-8 billto-options">
+                                    <label class="input-control checkbox small-check">
+                                        <input type="checkbox" name="bill_to" value="Medicare"> <span class="check"></span>
+                                        <span class="caption">Medicare</span>
+                                    </label>
+                                    <label class="input-control checkbox small-check">
+                                        <input type="checkbox" name="bill_to" value="Medicaid"> <span class="check"></span>
+                                        <span class="caption">Medicaid</span>
+                                    </label>
+                                    <label class="input-control checkbox small-check">
+                                        <input type="checkbox" name="bill_to" value="Insurance"> <span class="check"></span>
+                                        <span class="caption">Insurance</span>
+                                    </label>
+                                    <label class="input-control checkbox small-check">
+                                        <input type="checkbox" name="bill_to" value="FFT"> <span class="check"></span>
+                                        <span class="caption">FFT</span>
+                                    </label>
+                                    <label class="input-control checkbox small-check">
+                                        <input type="checkbox" name="bill_to" value="Self"> <span class="check"></span>
+                                        <span class="caption">Self Pay</span>
+                                    </label>
+                                </div>
+                                <!-- Payer Field -->
+                                <div class="col-md-4"><label class="input-control">Payer ID</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <input type="text" name="PayerID" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+                                <div class="col-md-4"><label class="input-control">Payer Name</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <input type="text" name="PayerName" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-11">
+                            <div class="row field-container payercontact-fields">
+                                <h5 class="section-title">PayerContact</h5>
+                                <!-- Payer Contact Field -->
+                                <div class="col-md-4"><label class="input-control">Payer Address Line1</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <input type="text" name="PayerAddressLine1" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+                                <div class="col-md-4"><label class="input-control">Payer Address Line2</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <input type="text" name="PayerAddressLine2" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+                                <div class="col-md-4"><label class="input-control">Payer City</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <input type="text" name="PayerCity" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+                                <div class="col-md-4"><label class="input-control">Payer State</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <select class="form-control" name="PayerState">
+                                            <option></option>
+                                            <option value="CA">CA</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4"><label class="input-control">Payer ZIP</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <input type="text" name="PayerZIP" class="form-control masked-input mask-zipcode" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+                                <div class="col-md-4"><label class="input-control">Payer Phone</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <input type="text" name="PayerPhone" class="form-control masked-input mask-phone" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-11">
+                            <div class="row field-container subscriber-fields">
+                                <h5 class="section-title">Subscriber</h5>
+                                <div class="col-md-4"><label class="input-control">Relationship to Subscriber</label></div>
+                                <div class="col-md-8">
+                                    <label class="input-control radio small-check">
+                                        <input type="radio" name="RelationshiptoSubscriber" value="800000000">
+                                        <span class="check"></span>
+                                        <span class="caption">Self</span>
+                                    </label>
+                                    <label class="input-control radio small-check">
+                                        <input type="radio" name="RelationshiptoSubscriber" value="800000001">
+                                        <span class="check"></span>
+                                        <span class="caption">Spouse</span>
+                                    </label>
+                                    <label class="input-control radio small-check">
+                                        <input type="radio" name="RelationshiptoSubscriber" value="800000002">
+                                        <span class="check"></span>
+                                        <span class="caption">Child</span>
+                                    </label>
+                                    <label class="input-control radio small-check">
+                                        <input type="radio" name="RelationshiptoSubscriber" value="">
+                                        <span class="check"></span>
+                                        <span class="caption">Others</span>
+                                    </label>
+                                    <!--<label class="input-control checkbox small-check">
+                                        <input type="checkbox" name="RelationshiptoSubscriber" value="1"> <span class="check"></span>
+                                        <span class="caption">Self</span>
+                                    </label>
+                                    <label class="input-control checkbox small-check">
+                                        <input type="checkbox" name="RelationshiptoSubscriber" value="2"> <span class="check"></span>
+                                        <span class="caption">Spouse</span>
+                                    </label>
+                                    <label class="input-control checkbox small-check">
+                                        <input type="checkbox" name="RelationshiptoSubscriber" value="3"> <span class="check"></span>
+                                        <span class="caption">Dependant</span>
+                                    </label>
+                                    <label class="input-control checkbox small-check">
+                                        <input type="checkbox" name="RelationshiptoSubscriber" value="41"> <span class="check"></span>
+                                        <span class="caption">Others</span>
+                                    </label>-->
+                                </div>
+                                <!-- Subscriber First Name -->
+                                <div class="col-md-4"><label class="input-control">Subscriber First Name</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <input type="text" name="SubscriberFirstName" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+                                <!-- Subscriber Last Name -->
+                                <div class="col-md-4"><label class="input-control">Subscriber Last Name</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <input type="text" name="SubscriberLastName" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+                                <!-- Insurance ID -->
+                                <div class="col-md-4"><label class="input-control">Insurance ID</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <input type="text" name="InsuranceID" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+                                <!-- Group ID -->
+                                <div class="col-md-4"><label class="input-control">Group ID</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <input type="text" name="GroupID" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 tab-nav-group">
+                            <button type="button" class="btn btn-primary btn-sm" onclick="navTab('in1-form','dg1tab');">< Previous</button>
+                            <button type="button" class="btn btn-success btn-sm" onclick="navTab('in1-form','pv1tab');">Next ></button>
+                        </div>
+                    </div>
+                </form>
+                <!-- </div> -->
+            </div>
+            <div class="tab-pane fade show" id="pidtab" role="tabpanel" aria-labelledby="pid-tab">
+                <div class="row form-section">
+                    <form name="pid-form">
+                        <div class="col-md-11">
+                            <div class="row field-container patient-fields">
+                                <h5 class="section-title">Patient</h5>
+                                <!-- Patient Field -->
+                                <div class="col-md-4"><label class="input-control">SSN/EIN</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <input type="text" name="PatientSSN" disabled="true" value="" class="form-control masked-input mask-ssn" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                        <input type="hidden" name="PatientID" value="">
+                                        <span class="icon-button" onclick="getSSN();">Get</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4"><label class="input-control">Patient First Name</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <input type="text" name="PatientFirstName" value="" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                        <span class="icon-button mif-search" onclick="loadPatientsModal('2')"></span>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4"><label class="input-control">Patient Last Name</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <input type="text" name="PatientLastName" value="" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                        <span class="icon-button mif-search" onclick="loadPatientsModal('1')"></span>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4"><label class="input-control">DOB</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm mb-1" data-role="datepicker" data-format="mm/dd/yyyy">
+                                        <input type="text" name="DOB" value="" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                        <button class="button btn-datepicker"><span class=" mif-calendar"></span></button>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mt-1"><label class="input-control">Sex</label></div>
+                                <div class="col-md-8 mt-1">
+                                    <label class="input-control radio small-check">
+                                        <input type="radio" name="sex" value="1">
+                                        <span class="check"></span>
+                                        <span class="caption">Male</span>
+                                    </label>
+                                    <label class="input-control radio small-check">
+                                        <input type="radio" name="sex" value="2">
+                                        <span class="check"></span>
+                                        <span class="caption">Female</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Patient Contact Section -->
+                        <div class="col-md-11">
+                            <div class="row field-container patientcontact-fields">
+                                <h5 class="section-title">Patient Contact</h5>
+                                <div class="col-md-4"><label class="input-control">Patient Address Line1</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <input type="text" name="PatientAddressLine1" value="" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+                                <div class="col-md-4"><label class="input-control">Patient Address Line2</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <input type="text" name="PatientAddressLine2" value="" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+                                <div class="col-md-4"><label class="input-control">Patient City</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <input type="text" name="PatientCity" value="" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+                                <div class="col-md-4"><label class="input-control">Patient State</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <select name="PatientState" class="form-control">
+                                            <option></option>
+                                            <option value="CA">CA</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4"><label class="input-control">Patient ZIP</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <input type="text" name="PatientZIP" value="" class="form-control masked-input mask-zipcode" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+                                <div class="col-md-4"><label class="input-control">Patient Phone</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <input type="text" name="PatientPhone" value="" class="form-control masked-input mask-phone" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Patient Demographics Section -->
+                        <div class="col-md-11">
+                            <div class="row field-container">
+                                <h5 class="section-title">Demographics</h5>
+                                <div class="col-md-4"><label class="input-control">Patient Race</label></div>
+                                <div class="col-md-8 patientrace-fields">
+                                    <label class="input-control checkbox small-check">
+                                        <input type="checkbox" name="patientRace" value="option1"> <span class="check"></span>
+                                        <span class="caption">option1</span>
+                                    </label>
+                                    <label class="input-control checkbox small-check">
+                                        <input type="checkbox" name="patientRace" value="option2"> <span class="check"></span>
+                                        <span class="caption">option2</span>
+                                    </label>
+                                    <label class="input-control checkbox small-check">
+                                        <input type="checkbox" name="patientRace" value="option3"> <span class="check"></span>
+                                        <span class="caption">option3</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-4"><label class="input-control">Patient Ethnicity</label></div>
+                                <div class="col-md-8 patientethnicity-fields">
+                                    <label class="input-control checkbox small-check">
+                                        <input type="checkbox" name="patientEthnicity" value="option1"> <span class="check"></span>
+                                        <span class="caption">option1</span>
+                                    </label>
+                                    <label class="input-control checkbox small-check">
+                                        <input type="checkbox" name="patientEthnicity" value="option2"> <span class="check"></span>
+                                        <span class="caption">option2</span>
+                                    </label>
+                                    <label class="input-control checkbox small-check">
+                                        <input type="checkbox" name="patientEthnicity" value="option3"> <span class="check"></span>
+                                        <span class="caption">option3</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-4"><label class="input-control">Patient Language</label></div>
+                                <div class="col-md-8 patientlang-fields">
+                                    <label class="input-control checkbox small-check">
+                                        <input type="checkbox" name="patientLang" value="option1"> <span class="check"></span>
+                                        <span class="caption">option1</span>
+                                    </label>
+                                    <label class="input-control checkbox small-check">
+                                        <input type="checkbox" name="patientLang" value="option2"> <span class="check"></span>
+                                        <span class="caption">option2</span>
+                                    </label>
+                                    <label class="input-control checkbox small-check">
+                                        <input type="checkbox" name="patientLang" value="option3"> <span class="check"></span>
+                                        <span class="caption">option3</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="col-md-12 tab-nav-group">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="navTab('pid-form','ordertab');">< Previous</button>
+                        <button type="button" class="btn btn-success btn-sm" onclick="navTab('pid-form','dg1tab');">Next ></button>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade show" id="pv1tab" role="tabpanel" aria-labelledby="pv1-tab">
+                <div class="row form-section">
+                    <form name="pv1-form">
+                        <div class="col-md-11">
+                            <div class="row field-container">
+                                <h5 class="section-title">PV1</h5>
+                                <!-- Patient Field -->
+                                <div class="col-md-4"><label class="input-control">Referring Physician</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <input type="text" name="ReferringPhysician" value="" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+                                <div class="col-md-4 npi-field">
+                                    <label class="input-control radio small-check">
+                                        <input type="radio" name="uni_id" value="npi" onChange="switchRadio('npi-field')">
+                                        <span class="check"></span>
+                                        <span class="caption">NPI</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-8 npi-field">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <input disabled type="text" name="npi" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+                                <div class="col-md-4 oth-field">
+                                    <label class="input-control radio small-check">
+                                        <input type="radio" name="uni_id" value="other" onChange="switchRadio('oth-field')">
+                                        <span class="check"></span>
+                                        <span class="caption">Other</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-8 oth-field">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <input disabled type="text" name="oth" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="col-md-12 tab-nav-group">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="navTab('pv1-form','in1tab');">< Previous</button>
+                        <button type="button" class="btn btn-success btn-sm" onclick="navTab('pv1-form','ft1tab');">Next ></button>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade show" id="ft1tab" role="tabpanel" aria-labelledby="ft1-tab">
+                <form name="ft1-form">
+                    <div class="row form-section">
+                        <!-- <form name="ft1-form"> -->
+                        <div class="col-md-12">
+                            <div class="row field-container">
+                                <h5 class="section-title">FT 1</h5>
+                                <!-- CDDP Profile -->
+                                <div class="col-md-3"><label class="input-control">Testing Options</label></div>
+                                <div class="col-md-9 testoptions-fields">
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="TestOption" value="1"> <span class="check"></span>
+                                        <span class="caption">CDDP PROFILE*</span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="TestOption" value="2"> <span class="check"></span>
+                                        <span class="caption">CDDP PSYCHATRlC PROFILE*</span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="TestOption" value="3"> <span class="check"></span>
+                                        <span class="caption">IMMUNOASSAY REFLEX LC/MS/MS TESTING (AMP BZO, COC, MTD, OPI, PCP,THC, URINE ADULTERATION TESTING) </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="TestOption" value="4"> <span class="check"></span>
+                                        <span class="caption">IMMUNOASSAY TESTING (AMP, EZO, COC, MTD, OP1, PCP, THC, URINE ADULTERATION TESTING)</span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="TestOption" value="5"> <span class="check"></span>
+                                        <span class="caption">INDIVIDUALIZED IC/MS/MS TESTING (CHOOSE FROM OPTIONS AVAILABLE TO THE RIGHT) </span>
+                                    </label>
+                                </div>
+                                <!-- Point of Care Test Results -->
+                                <div class="col-md-3"><label class="input-control">Point of Care Test Results</label></div>
+                                <div class="col-md-9 poc-fields">
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="PocTestResults" value="1"> <span class="check"></span>
+                                        <span class="caption">Test Strips</span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="PocTestResults" value="2"> <span class="check"></span>
+                                        <span class="caption">Analyzer </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <h5 class="section-title">LC/MS/MS Testing, Confirm</h5>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row field-container">
+                                <!-- Opiates Group -->
+                                <div class="col-md-6"><label class="input-control">Opiates Group</label></div>
+                                <div class="col-md-6 OpiatesGroup-fields">
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="OpiatesGroup" value="Codeine"> <span class="check"></span>
+                                        <span class="caption">Codeine</span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="OpiatesGroup" value="Morphine"> <span class="check"></span>
+                                        <span class="caption">Morphine </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="OpiatesGroup" value="Hydrocodone"> <span class="check"></span>
+                                        <span class="caption">Hydrocodone </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="OpiatesGroup" value="Norhydrocodone"> <span class="check"></span>
+                                        <span class="caption">Norhydrocodone </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="OpiatesGroup" value="Hydromorphone"> <span class="check"></span>
+                                        <span class="caption">Hydromorphone </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="OpiatesGroup" value="Oxycodone"> <span class="check"></span>
+                                        <span class="caption">Oxycodone </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="OpiatesGroup" value="Noroxycodone"> <span class="check"></span>
+                                        <span class="caption">Noroxycodone </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="OpiatesGroup" value="Oxymorphone"> <span class="check"></span>
+                                        <span class="caption">Oxymorphone </span>
+                                    </label>
+                                </div>
+                                <!-- Synthetic Opioids Group -->
+                                <div class="col-md-6"><label class="input-control">Synthetic Opioids Group</label></div>
+                                <div class="col-md-6 SyntheticOpioidsGroup-fields">
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="SyntheticOpioidsGroup" value="Buprenorphine"> <span class="check"></span>
+                                        <span class="caption">Buprenorphine</span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="SyntheticOpioidsGroup" value="Norbuprenorphine"> <span class="check"></span>
+                                        <span class="caption">Norbuprenorphine </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="SyntheticOpioidsGroup" value="Naloxone"> <span class="check"></span>
+                                        <span class="caption">Naloxone </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="SyntheticOpioidsGroup" value="Fentanyl"> <span class="check"></span>
+                                        <span class="caption">Fentanyl </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="SyntheticOpioidsGroup" value="Norfentanyl"> <span class="check"></span>
+                                        <span class="caption">Norfentanyl </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="SyntheticOpioidsGroup" value="Methadone"> <span class="check"></span>
+                                        <span class="caption">Methadone </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="SyntheticOpioidsGroup" value="EDDP"> <span class="check"></span>
+                                        <span class="caption">EDDP </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="SyntheticOpioidsGroup" value="Meperidine"> <span class="check"></span>
+                                        <span class="caption">Meperidine </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="SyntheticOpioidsGroup" value="Normeperidine"> <span class="check"></span>
+                                        <span class="caption">Normeperidine </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="SyntheticOpioidsGroup" value="Tramadol"> <span class="check"></span>
+                                        <span class="caption">Tramadol </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="SyntheticOpioidsGroup" value="Tapentadol"> <span class="check"></span>
+                                        <span class="caption">Tapentadol </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row field-container">
+                                <!-- Benzodiazepines Group -->
+                                <div class="col-md-6"><label class="input-control">Benzodiazepines Group</label></div>
+                                <div class="col-md-6 BenzodiazepinesGroup-fields">
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="BenzodiazepinesGroup" value="Alprazolam"> <span class="check"></span>
+                                        <span class="caption">Alprazolam</span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="BenzodiazepinesGroup" value="Hydroxyalprazolam"> <span class="check"></span>
+                                        <span class="caption">Hydroxyalprazolam </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="BenzodiazepinesGroup" value="Clonazepam"> <span class="check"></span>
+                                        <span class="caption">Clonazepam </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="BenzodiazepinesGroup" value="7-Aminoclonazepam"> <span class="check"></span>
+                                        <span class="caption">7-Aminoclonazepam </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="BenzodiazepinesGroup" value="Lorazeparn"> <span class="check"></span>
+                                        <span class="caption">Lorazeparn </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="BenzodiazepinesGroup" value="Diazepam"> <span class="check"></span>
+                                        <span class="caption">Diazepam </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="BenzodiazepinesGroup" value="Nordiazepam"> <span class="check"></span>
+                                        <span class="caption">Nordiazepam </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="BenzodiazepinesGroup" value="Oxazepam"> <span class="check"></span>
+                                        <span class="caption">Oxazepam </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="BenzodiazepinesGroup" value="Temazepam"> <span class="check"></span>
+                                        <span class="caption">Temazepam </span>
+                                    </label>
+                                </div>
+                                <!-- Others Group -->
+                                <div class="col-md-6"><label class="input-control">Others Group</label></div>
+                                <div class="col-md-6 OthersGroup-fields">
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="OthersGroup" value="Amphetamine"> <span class="check"></span>
+                                        <span class="caption">Amphetamine</span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="OthersGroup" value="Gabapentin"> <span class="check"></span>
+                                        <span class="caption">Gabapentin </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="OthersGroup" value="Pregabalin"> <span class="check"></span>
+                                        <span class="caption">Pregabalin </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="OthersGroup" value="Carisoprodo"> <span class="check"></span>
+                                        <span class="caption">Carisoprodo</span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="OthersGroup" value="Meprobamate"> <span class="check"></span>
+                                        <span class="caption">Meprobamate </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="OthersGroup" value="Phentermine"> <span class="check"></span>
+                                        <span class="caption">Phentermine </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="OthersGroup" value="Zolpidem"> <span class="check"></span>
+                                        <span class="caption">Zolpidem </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="OthersGroup" value="Ritalinic Acid"> <span class="check"></span>
+                                        <span class="caption">Ritalinic Acid </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="OthersGroup" value="Cyclobenzaprine"> <span class="check"></span>
+                                        <span class="caption">Cyclobenzaprine </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row field-container">
+                                <!-- Anti-Depressants Group -->
+                                <div class="col-md-6"><label class="input-control">Anti-Depressants Group</label></div>
+                                <div class="col-md-6 AntiDepressantsGroup-fields">
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AntiDepressantsGroup" value="Amtitriptyline"> <span class="check"></span>
+                                        <span class="caption">Amtitriptyline</span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AntiDepressantsGroup" value="Nortriptyline"> <span class="check"></span>
+                                        <span class="caption">Nortriptyline </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AntiDepressantsGroup" value="Bupropion"> <span class="check"></span>
+                                        <span class="caption">Bupropion </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AntiDepressantsGroup" value="Desmethyldoxepin"> <span class="check"></span>
+                                        <span class="caption">Desmethyldoxepin</span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AntiDepressantsGroup" value="Desipramine"> <span class="check"></span>
+                                        <span class="caption">Desipramine </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AntiDepressantsGroup" value="Venlafaxine"> <span class="check"></span>
+                                        <span class="caption">Venlafaxine </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AntiDepressantsGroup" value="Desvenlafaxine"> <span class="check"></span>
+                                        <span class="caption">Desvenlafaxine </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AntiDepressantsGroup" value="Duloxetine"> <span class="check"></span>
+                                        <span class="caption">Duloxetine </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AntiDepressantsGroup" value="Trazodone"> <span class="check"></span>
+                                        <span class="caption">Trazodone </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AntiDepressantsGroup" value="Mirtazapine"> <span class="check"></span>
+                                        <span class="caption">Mirtazapine </span>
+                                    </label>
+                                </div>
+                                <!-- Anti-Psychotic Group -->
+                                <div class="col-md-6"><label class="input-control">Anti-Psychotic Group</label></div>
+                                <div class="col-md-6 AntiPsychoticGroup-fields">
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AntiPsychoticGroup" value="Aripiprazole"> <span class="check"></span>
+                                        <span class="caption">Aripiprazole</span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AntiPsychoticGroup" value="Risperidone"> <span class="check"></span>
+                                        <span class="caption">Risperidone </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AntiPsychoticGroup" value="9-Hydroxyrisperidone"> <span class="check"></span>
+                                        <span class="caption">9-Hydroxyrisperidone </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AntiPsychoticGroup" value="Chlorpromazine"> <span class="check"></span>
+                                        <span class="caption">Chlorpromazine </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AntiPsychoticGroup" value="Clozapine"> <span class="check"></span>
+                                        <span class="caption">Clozapine </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AntiPsychoticGroup" value="Haloperidol"> <span class="check"></span>
+                                        <span class="caption">Haloperidol </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AntiPsychoticGroup" value="Olanzapine"> <span class="check"></span>
+                                        <span class="caption">Olanzapine </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AntiPsychoticGroup" value="Quetiapine"> <span class="check"></span>
+                                        <span class="caption">Quetiapine </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AntiPsychoticGroup" value="Ziprasidone"> <span class="check"></span>
+                                        <span class="caption">Ziprasidone </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row field-container">
+                                <!-- Drugs of Abuse Group Group -->
+                                <div class="col-md-6"><label class="input-control">Drugs of Abuse Group Group</label></div>
+                                <div class="col-md-6 DrugsOfAbuseGroupGroup-fields">
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="DrugsOfAbuseGroupGroup" value="6-MAM"> <span class="check"></span>
+                                        <span class="caption">6-MAM</span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="DrugsOfAbuseGroupGroup" value="Cocaine"> <span class="check"></span>
+                                        <span class="caption">Cocaine </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="DrugsOfAbuseGroupGroup" value="Benzoylecgonine"> <span class="check"></span>
+                                        <span class="caption">Benzoylecgonine </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="DrugsOfAbuseGroupGroup" value="MDA"> <span class="check"></span>
+                                        <span class="caption">MDA </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="DrugsOfAbuseGroupGroup" value="MDEA"> <span class="check"></span>
+                                        <span class="caption">MDEA </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="DrugsOfAbuseGroupGroup" value="MDMA"> <span class="check"></span>
+                                        <span class="caption">MDMA </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="DrugsOfAbuseGroupGroup" value="Methamphetamine"> <span class="check"></span>
+                                        <span class="caption">Methamphetamine </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="DrugsOfAbuseGroupGroup" value="PCP"> <span class="check"></span>
+                                        <span class="caption">PCP </span>
+                                    </label>
+                                </div>
+                                <!-- Additional Testing -->
+                                <div class="col-md-6"><label class="input-control">Additional Testing</label></div>
+                                <div class="col-md-6 AdditionalTesting-fields">
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AdditionalTesting" value="Naltrexon"> <span class="check"></span>
+                                        <span class="caption">Naltrexone</span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AdditionalTesting" value="Propoxyphene"> <span class="check"></span>
+                                        <span class="caption">Propoxyphene </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AdditionalTesting" value="Norpropoxyphen"> <span class="check"></span>
+                                        <span class="caption">Norpropoxyphene</span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AdditionalTesting" value="Sufentanil"> <span class="check"></span>
+                                        <span class="caption">Sufentanil </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AdditionalTesting" value="Flunitrazepam"> <span class="check"></span>
+                                        <span class="caption">Flunitrazepam </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AdditionalTesting" value="Flurazepam"> <span class="check"></span>
+                                        <span class="caption">Flurazepam </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AdditionalTesting" value="Midazolam"> <span class="check"></span>
+                                        <span class="caption">Midazolam </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AdditionalTesting" value="Chlordiazepoxide"> <span class="check"></span>
+                                        <span class="caption">Chlordiazepoxide </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AdditionalTesting" value="Cotinine"> <span class="check"></span>
+                                        <span class="caption">Cotinine </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AdditionalTesting" value="Naproxen"> <span class="check"></span>
+                                        <span class="caption">Naproxen </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AdditionalTesting" value="EtG"> <span class="check"></span>
+                                        <span class="caption">EtG </span>
+                                    </label>
+                                    <label class="input-control checkbox checkbox-l small-check">
+                                        <input type="checkbox" name="AdditionalTesting" value="THC-COOH"> <span class="check"></span>
+                                        <span class="caption">THC-COOH </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- </form> -->
+                        <div class="col-md-12 tab-nav-group">
+                            <button type="button" class="btn btn-primary btn-sm" onclick="navTab('ft1-form','pv1tab');">< Previous</button>
+                            <button id="saveButton" type="button" class="btn btn-success btn-sm"> Save</button>
+                            <button type="button" class="btn btn-success btn-sm" onclick="submitAll();">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Select Patient Modal -->
+<div class="modal fade" id="selectPatientPopup">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form name="pid-pick-form">
+                    <table id="tblPatients" style="width: 100%" class="dataTable" aria-describedby="tblClaims_info">
+                        <thead>
+                            <tr role="row">
+                                <th> </th>
+                                @*<th> Payer Name</th>*@
+                                @*<th> Patient ID</th>*@
+                                <th> Patient Last Name</th>
+                                <th> Patient First Name</th>
+                                <th> DOB</th>
+                                <th> Gender</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer" style="padding: 8px 16px;">
+                <button type="button" class="btn btn-success" onclick="submitSelectedPatient();">Submit</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>*@
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+<!-- Metro UI core JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/metro/3.0.17/js/metro.min.js"></script>
+<!-- JQuery Repeater -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js"></script>
+<!-- Moment -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>

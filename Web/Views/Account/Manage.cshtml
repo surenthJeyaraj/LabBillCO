@@ -1,0 +1,123 @@
+﻿@model Web.Models.Account.RegisterModel
+@{
+    ViewBag.Title = "Register";
+    var items = Model.Roles.Select(x => new SelectListItem()
+    {
+        Text = x,
+        Value = x
+    });
+    Layout = "~/Views/Shared/AuthenticateLayout.cshtml";
+}
+@section HeaderScripts
+{
+    <style type="text/css">
+        .formselect {
+            height: 31px;
+        }
+
+        #accountformSection:before {
+            position: absolute;
+            content: "";
+        }
+
+        .searchForm {
+            padding-top: 100px;
+        }
+        .paddingtop10 {
+            padding-top: 10px;
+            padding-right: 10px;
+        }
+
+        .paddingtop15 {
+            padding-top: 15px;
+            
+        }
+        .metro .input-control.text{
+            cursor:text;
+        }
+
+        .note {
+            font-size: 11px;
+            color: #b22222;
+        }
+
+    </style>
+    @Scripts.Render(Links.Scripts.Pages.AccountList_js)
+}
+
+<section class="example" id="accountformSection">
+    @using (Html.BeginForm())
+    {
+        <fieldset>
+            <legend class="select">Manage Users</legend>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = "First Name" })
+                    </div>
+                     <div class="form-group">
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control ", @placeholder = "Last Name" })
+                    </div>
+                    <div class="form-group">
+                        @Html.HiddenFor(m => m.UserId)
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Username" })
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control", @placeholder = "Email" })
+                    </div>
+                    <div class="form-group">
+                        @Html.DropDownListFor(m => m.SelectedRole, items, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-success" value="Register" class="btn" />
+                        <input type="button" class="btn btn-primary" value="Clear" class="btn btn-clear" />
+                    </div>
+                     <div class="col-md-12">
+                         <span class="note" id="registerNote">Note: Added user will receive a confirmation email requiring a password reset upon initial login.</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    @Html.ValidationSummary()
+                </div>
+                <div class="col-md-6">
+                    <img src="~/Images/ajax-loader.gif" id="loader" alt="Loading"/>
+                </div>
+
+            </div>
+        </fieldset>
+    }
+</section>
+
+<div class="examplebg bd-white shadow bg-container" id="userTable" style="background-color: #FFC000;">
+
+    <div id="dataTables-1_wrapper" class="dataTables_wrapper" role="grid">
+        <div class="dataTables_length" id="dataTables-1_length">
+            @* <label>
+                Show
+                <select name="dataTables-1_length" aria-controls="dataTables-1" class="">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                entries</label>*@
+        </div>
+        <div id="dataTables-1_processing" class="dataTables_processing" style="visibility: hidden;">Processing...</div>
+        <table class="table striped hovered dataTable shadow" id="tblUserList" border="0" aria-describedby="dataTables-1_info">
+            <thead>
+                <tr class="GridHeader" role="row">
+                    <th>User Name</th>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>Role</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+</div>

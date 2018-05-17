@@ -1,0 +1,17 @@
+D:\Official\MacPractice\Domain\bin\Debug\Domain.dll
+D:\Official\MacPractice\Domain\bin\Debug\Domain.pdb
+D:\Official\MacPractice\Domain\obj\Debug\Domain.dll
+D:\Official\MacPractice\Domain\obj\Debug\Domain.pdb
+D:\Official\MacPractice\Domain\obj\Debug\Domain.csprojResolveAssemblyReference.cache
+D:\MacPractice\Domain\bin\Debug\Domain.dll
+D:\MacPractice\Domain\bin\Debug\Domain.pdb
+D:\MacPractice\Domain\obj\Debug\Domain.dll
+D:\MacPractice\Domain\obj\Debug\Domain.pdb
+D:\Projects_tfs\Development\Wesite\LabBillCo\Domain\bin\Debug\Domain.dll
+D:\Projects_tfs\Development\Wesite\LabBillCo\Domain\bin\Debug\Domain.pdb
+D:\Projects_tfs\Development\Wesite\LabBillCo\Domain\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\Projects_tfs\Development\Wesite\LabBillCo\Domain\bin\Debug\Microsoft.IdentityModel.dll
+D:\Projects_tfs\Development\Wesite\LabBillCo\Domain\bin\Debug\Microsoft.Xrm.Sdk.xml
+D:\Projects_tfs\Development\Wesite\LabBillCo\Domain\obj\Debug\Domain.dll
+D:\Projects_tfs\Development\Wesite\LabBillCo\Domain\obj\Debug\Domain.pdb
+D:\Projects_tfs\Development\Wesite\LabBillCo\Domain\obj\Debug\Domain.csprojResolveAssemblyReference.cache

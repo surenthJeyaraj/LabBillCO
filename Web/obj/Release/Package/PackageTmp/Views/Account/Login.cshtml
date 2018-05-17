@@ -1,0 +1,135 @@
+﻿@model Web.Models.Account.LoginModel
+
+@{
+    ViewBag.Title = "Log in";
+            // Layout = "";
+    Layout = "~/Views/Shared/_LayoutBeforeLogin.cshtml";
+             
+}
+<style type="text/css">
+    
+    #transactionTable {
+        margin-top: 20px;
+    }
+
+        #transactionTable:before {
+            content: "Results";
+        }
+
+    li {
+        list-style-type: none;
+    }
+
+    table.gridtable {
+        font-family: verdana,arial,sans-serif;
+        font-size: 11px;
+        color: #333333;
+        border-width: 1px;
+        border-color: #666666;
+        border-collapse: collapse;
+    }
+
+        table.gridtable th {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #dedede;
+        }
+
+        table.gridtable td {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #ffffff;
+        }
+
+    sStyleParaText {
+        LIST-STYLE-POSITION: inside;
+        border-spacing: 1000px;
+        padding: 1px;
+        border: #527787;
+    }
+
+    sStyleRowType {
+        FONT-WEIGHT: normal;
+        FONT-SIZE: 8pt;
+        LINE-HEIGHT: 19px;
+        FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+    }
+    .login-title {
+        color: #fff;
+        font-weight: normal;
+        font-size: 1.8rem;
+        line-height: 2;
+    }
+    .form-link {
+        padding: 5px;
+        display: block;
+        color: #dee7e7;
+    }
+    .form-link:hover {
+        color: #dee7e7;
+        text-decoration:none;
+    }
+
+</style>
+
+<hgroup class="title">
+    @* <h1>@ViewBag.Title.</h1>*@
+</hgroup>
+<legend class="login-title">LabBillCo User Portal</legend>
+<div class=" col-md-12" id="searchCriteria" style="background-color: #00000047 !important;padding:30px 15px 15px 15px; color:#fff;">
+    <section id="loginForm">
+        @*<h2>Use a local account to log in.</h2>*@
+        @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <div class="form-group row">
+            @Html.LabelFor(m => m.UserName, new { @class = "col-4 col-form-label" })
+            <div class="col-7">
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+            </div>
+             @Html.ValidationMessageFor(m => m.UserName)
+        </div>
+        <div class="form-group row">
+            @Html.LabelFor(m => m.Password, new { @class = "col-4 col-form-label" })
+            <div class="col-7">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            </div>
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+        <div class="form-group row justify-content-center">
+            <div class="col-6">
+                <input class="btn btn-default btn-block" type="submit" value=" Sign in " />
+            </div>
+            <div class="col-5">
+                @Html.ActionLink("Forgot your password?", "ForgotPassword", null, new { @class = "form-link" })
+            </div>
+            
+           
+        </div>
+            @* <li>
+            @Html.CheckBoxFor(m => m.RememberMe)
+            @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+        </li>*@
+
+            @*<input type="submit" value="Log in" />*@
+            @* <p>
+            @Html.ActionLink("Forgot Password", "ForgotPassword") if you have forgotten the password of your account.
+        </p>*@
+
+            // Layout.ElementA
+
+            }
+</section>
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

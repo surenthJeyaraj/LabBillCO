@@ -1,0 +1,64 @@
+﻿@using Web.Models.Claim
+@model Web.Models.Claim.IndividualClaimViewModel
+
+@{
+    ViewBag.Title = "ClaimDetails";
+    IndividualClaimViewModel model = Model;
+}
+<style>
+#IndividualClaimView table {
+    border: 1px solid #ccc;
+    overflow: auto;
+    padding-bottom: 14px;
+    white-space: nowrap;
+    background: #e6e6fa;
+}
+</style>
+
+
+<div id="IndividualClaimView">
+    @using (Html.BeginForm())
+    {
+        <table id="tblClaimView">
+        <thead><tr><td>Subscriber Name</td><td>Subscriber ID</td><td>Patient Name</td><td>Claim#</td><td>Posted Date</td><td>Payer ID</td><td>Billing Last Name</td><td>Rendering Provider</td><td>DOS</td><td>Claim Status</td><td>Claim Amount</td></tr></thead>
+            <tbody>  
+                
+                @*Need to write the Code from page*@
+
+                <tr>
+                <td>
+                    <div class="col-xs-6">@Html.TextBoxFor(x => x.PatientName, new {@maxlength = "25", placeholder = "PatientName" })</div>
+                </td>
+                <td>
+                    <div class="col-xs-6">@Html.TextBoxFor(x => x.ProviderName, new {  @maxlength = "25", placeholder = "Subscriber ID" })</div>
+                </td> 
+                    <td>
+                    <div class="col-xs-6">@Html.TextBoxFor(x => x.ProviderName, new {  @maxlength = "25", placeholder = "SubscriberName" })</div>
+                </td> 
+
+            </tr>      
+        @foreach (var Trans in model.DetailTransactions)
+        {
+            <tr>
+            
+            <td></td> 
+            <td></td>  
+            <td></td> 
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>@Trans.ChargedAmt</td>
+            <td>@Trans.DOS</td>
+            <td>@Trans.DateProcessed</td>
+            <td>@Trans.CHStatus</td>
+            
+             
+            </tr>
+        }
+                
+    </tbody>
+        </table>
+        
+    }
+</div>
