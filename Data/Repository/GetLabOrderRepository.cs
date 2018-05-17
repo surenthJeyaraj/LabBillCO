@@ -178,8 +178,8 @@ namespace Data.Repository
                     : (queryModel.UserRole != null && (queryModel.UserRole == Checker && (int)PendingforApproval == statuscode &&
                                             !orderCollection.Contains("lab_json_checker") &&
                                             orderCollection.Contains("lab_json_maker"))
-                        ? (isvalidate.IsValidJson(orderCollection[$"lab_json_maker"].ToString())
-                            ? orderCollection[$"lab_json_maker"].ToString()
+                        ? (isvalidate.IsValidJson(orderCollection["lab_json_maker"].ToString())
+                            ? orderCollection["lab_json_maker"].ToString()
                             : "")
                         : (queryModel.UserRole == Checker && (int)PendingforApproval == statuscode &&
                            orderCollection.Contains("lab_json_checker")
